@@ -48,14 +48,19 @@ syntax on
 
 let $RTP=split(&runtimepath, ',')[0]
 
+nnoremap <F3> :e ~/.vimrc<CR>
+nnoremap <F4> :source ~/.vimrc<CR>
+nnoremap <F11> :mksession! ~/.vim/.today.ses<cr>
+nnoremap <F12> :source ~/.vim/.today.ses<cr>
 if has('win32')
 	"echo "Someone please open the Window(s)!"
-	let $RC="$HOME\_vimrc"
+	"let $RC="$HOME\_vimrc"
+	let $RC="$HOME\.vimrc"
 	unlet! skip_defaults_vim
 	source $VIMRUNTIME/defaults.vim
 	set completeopt=menuone,noinsert,noselect,popup
-	nnoremap <F3> :e ~\_vimrc<CR>
-	nnoremap <F4> :source ~\_vimrc<CR>
+	"nnoremap <F3> :e ~\_vimrc<CR>
+	"nnoremap <F4> :source ~\_vimrc<CR>
 	if has('nvim') " neovim
 		au VimEnter * GuiPopupmenu 0
 		set completeopt=menuone,noinsert,noselect
@@ -68,10 +73,10 @@ elseif has('linux')
 	let $RC="$HOME/.vimrc"
 	set completeopt=menuone,noinsert,noselect,popup
 	set undodir=~/.vim/undodir
-	nnoremap <F3> :e ~/.vimrc<CR>
-	nnoremap <F4> :source ~/.vimrc<CR>
-	nnoremap <F11> :mksession! ~/.vim/.today.ses<cr>
-	nnoremap <F12> :source ~/.vim/.today.ses<cr>
+	"nnoremap <F3> :e ~/.vimrc<CR>
+	"nnoremap <F4> :source ~/.vimrc<CR>
+	"nnoremap <F11> :mksession! ~/.vim/.today.ses<cr>
+	"nnoremap <F12> :source ~/.vim/.today.ses<cr>
 endif
 
 " Install vim-plug: https://github.com/junegunn/vim-plug
@@ -87,7 +92,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if has('win32')
-	Plug 'ycm-core/YouCompleteMe'
+	"Plug 'ycm-core/YouCompleteMe'
 endif
 if has('nvim')
 	Plug 'nvim-lua/plenary.nvim'
@@ -120,11 +125,14 @@ autocmd FileChangedShellPost *
 " for nerdtree
 let NERDTreeShowHidden=1
 let NERDTreeShowBookmarks=1
-nmap <c-n> :NERDTreeToggle<CR>
-" for FZF
+nnoremap <c-n> :NERDTreeToggle<CR>
+
+" for FZF (fuzzy file finder)
 nnoremap FF :FZF<CR>
+
 " error format
-set efm=%f:%l:%c:\ error:\ %m
+"set efm=%f:%l:%c:\ error:\ %m
+
 "Key mappings
 "inoremap <S-CR> <ESC>
 "nnoremap <S-CR> <ESC>
@@ -150,6 +158,7 @@ nnoremap <A-l> xp
 nnoremap <A-h> xhP
 nnoremap <A-e> xep
 nnoremap <A-b> xbP
+
 " going around
 "nnoremap <C-h> <c-w>h
 "nnoremap <C-l> <c-w>l
@@ -160,6 +169,7 @@ nnoremap J ]m
 nnoremap K [m
 vnoremap J ]m
 vnoremap K [m
+
 " clipboard/copy/paste
 inoremap <c-t> <ESC>"+pa
 nnoremap <c-t> "+p
@@ -194,7 +204,7 @@ vnoremap <A-v> "hy:%s/<C-r>h//gn
 "nmap <leader>yd :YcmDiags<CR>
 "nmap <leader>fi :YcmCompleter FixIt<CR>
 
-""""""""" coc & clangd """""""""
+""""""""" coc """""""""
 source ~/.vim/coc.vim
 finish
 
