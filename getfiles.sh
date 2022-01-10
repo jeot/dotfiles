@@ -1,3 +1,5 @@
+# copy original files to this directory
+
 # the .vimrc file
 cp ~/.vimrc ./.vimrc
 
@@ -11,3 +13,8 @@ cp ~/.tmux.conf ./.tmux.conf
 mkdir -p -v .config/i3
 cp ~/.config/i3/config ./.config/i3/config
 cp ~/.config/i3/i3blocks.conf ./.config/i3/i3blocks.conf
+
+# the coc configuration file
+mkdir -p -v .vim
+cp ~/.vim/coc.vim ./.vim/coc.vim
+cp ~/.vim/coc-settings.json ./.vim/coc-settings.json
