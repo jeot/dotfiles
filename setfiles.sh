@@ -18,3 +18,6 @@ cp ./.config/i3/i3blocks.conf ~/.config/i3/i3blocks.conf
 mkdir -p -v ~/.vim
 cp ./.vim/coc.vim ~/.vim/coc.vim
 cp ./.vim/coc-settings.json ~/.vim/coc-settings.json
+
+# the keybindings
+cp ./.xbindkeysrc ~/.xbindkeysrc
