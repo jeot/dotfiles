@@ -3,10 +3,13 @@
 " gVim (Win) init file: "~\_vimrc"
 " vim (Linux) init file: "~/.vimrc"
 
+set foldmethod=syntax
+set foldlevelstart=1
+set foldnestmax=2
 set exrc
 set secure
 set guicursor=
-set relativenumber
+"set relativenumber
 set nohlsearch
 set hlsearch
 set ignorecase
@@ -16,7 +19,7 @@ set noerrorbells
 set tabstop=4 softtabstop=0 shiftwidth=4
 set noexpandtab autoindent smartindent
 set guifont=Consolas:h12
-set nu
+set number
 set wrap
 set smartcase
 set noswapfile
@@ -42,16 +45,23 @@ set wildmenu
 set nopaste
 set autoread
 set ttymouse=xterm2
+set mouse=a
+set viewoptions="folds,options,cursor"
+set list " Display unprintable characters f12 - switches
+"set listchars=nbsp:×,tab:\ \ ,trail:•,extends:»,precedes:«
+set listchars=nbsp:×,tab:•\ ,trail:•,extends:»,precedes:«
+set background=dark    " Setting dark mode
+set ssop=blank,buffers,curdir,folds,help,tabpages,winsize,terminal
 
 filetype plugin indent on
 syntax on
 
 let $RTP=split(&runtimepath, ',')[0]
 
-nnoremap <F3> :e ~/.vimrc<CR>
+nnoremap <F3> :-tabe ~/.vimrc<CR> \| :tcd ~<CR>
 nnoremap <F4> :source ~/.vimrc<CR>
-nnoremap <F11> :mksession! ~/.vim/.today.ses<cr>
-nnoremap <F12> :source ~/.vim/.today.ses<cr>
+"nnoremap <F11> :mksession! ~/.vim/.today.ses<cr>
+"nnoremap <F12> :source ~/.vim/.today.ses<cr>
 if has('win32')
 	"echo "Someone please open the Window(s)!"
 	"let $RC="$HOME\_vimrc"
@@ -85,42 +95,70 @@ endif
 " iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim | ni "$(@($env:XDG_DATA_HOME, $env:LOCALAPPDATA)[$null -eq $env:XDG_DATA_HOME])/nvim-data/site/autoload/plug.vim" -Force
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 "Plug 'takac/vim-hardtime'
 Plug 'tpope/vim-unimpaired'
-Plug 'jacoborus/tender.vim'
-Plug 'itchyny/lightline.vim'
-Plug 'preservim/nerdcommenter'
+Plug 'tpope/vim-flagship'
+" Plug 'tpope/vim-endwise'
+Plug 'cohama/lexima.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+"Plug 'jacoborus/tender.vim'
+Plug 'morhetz/gruvbox'
+"Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'preservim/nerdcommenter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-if has('win32')
-	"Plug 'ycm-core/YouCompleteMe'
-endif
-if has('nvim')
-	Plug 'nvim-lua/plenary.nvim'
-	Plug 'nvim-telescope/telescope.nvim'
-endif
 Plug 'preservim/nerdtree'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
 Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
+
+augroup vimrc
+	" Remove all vimrc autocommands
+	autocmd!
+
+	"" gruvbox
+	autocmd vimenter * ++nested colorscheme gruvbox
+
+	" delete white space at end of lines
+	autocmd BufWritePre *.h,*.cpp   :%s/\s\+$//e
+
+	" save/load foldings
+	" autocmd BufWinLeave *.h,*.cpp mkview
+	" autocmd BufWinEnter *.h,*.cpp silent loadview
+
+	"Triger `autoread` when files changes on disk
+	" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+	" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+	autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+	" Notification after file change
+	" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+	autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+augroup END
+
+" for flagship
+set laststatus=2
+set showtabline=2
+set guioptions-=e
+" for tabline in flagship
+" let g:tablabel = "%N%{flagship#tabmodified()} %{flagship#tabcwds('shorten',',')}"
+let g:tablable = "hello"
 
 " Disable tmux navigator when zooming the Vim pane
 let g:tmux_navigator_disable_when_zoomed = 1
 
-colorscheme tender
+"" airline theme
+let g:airline_theme='minimalist'
+
+"" tender theme
+"colorscheme tender
+
 let g:hardtime_default_on = 0
 let g:hardtime_allow_different_key = 1
 let g:hardtime_maxcount = 2
 
- "Triger `autoread` when files changes on disk
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
-  \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
-
-" Notification after file change
-" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-autocmd FileChangedShellPost *
-  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 
 " for nerdtree
 let NERDTreeShowHidden=1
@@ -129,6 +167,7 @@ nnoremap <c-n> :NERDTreeToggle<CR>
 
 " for FZF (fuzzy file finder)
 nnoremap FF :FZF<CR>
+nnoremap FA :FZF ..<CR>
 
 " error format
 "set efm=%f:%l:%c:\ error:\ %m
@@ -148,16 +187,33 @@ vnoremap <space><CR> :norm @q<CR>
 "nnoremap <space>fb <cmd>Telescope buffers<cr>
 "nnoremap <space>fh <cmd>Telescope help_tags<cr>
 " moveing lines
-nnoremap <A-j> :m+<CR>
-nnoremap <A-k> :m-2<CR>
-inoremap <A-k> <Esc>:m-2<CR>gi
-inoremap <A-j> <Esc>:m+<CR>gi
-vnoremap <A-j> :m'>+<CR>gv
-vnoremap <A-k> :m-2<CR>gv
-nnoremap <A-l> xp
-nnoremap <A-h> xhP
-nnoremap <A-e> xep
-nnoremap <A-b> xbP
+if has('gui_running')
+	nnoremap <A-j> :m+<CR>
+	nnoremap <A-k> :m-2<CR>
+	inoremap <A-k> <Esc>:m-2<CR>gi
+	inoremap <A-j> <Esc>:m+<CR>gi
+	vnoremap <A-j> :m'>+<CR>gv
+	vnoremap <A-k> :m-2<CR>gv
+	nnoremap <A-l> xp
+	nnoremap <A-h> xhP
+	nnoremap <A-e> xep
+	nnoremap <A-b> xbP
+else
+	" nnoremap j :m+<CR>
+	" nnoremap k :m-2<CR>
+	" inoremap k <Esc>:m-2<CR>gi
+	" inoremap j <Esc>:m+<CR>gi
+	" vnoremap j :m'>+<CR>gv
+	" vnoremap k :m-2<CR>gv
+	" nnoremap l xp
+	" nnoremap h xhP
+	" nnoremap e xep
+	" nnoremap b xbP
+endif
+
+" zooming
+"noremap zi <c-w>_ \| <c-w>\|
+"noremap zo <c-w>=
 
 " going around
 "nnoremap <C-h> <c-w>h
@@ -165,10 +221,10 @@ nnoremap <A-b> xbP
 "nnoremap <C-j> <c-w>j
 "nnoremap <C-k> <c-w>k
 nnoremap <F2> :Explore<CR>
-nnoremap J ]m
-nnoremap K [m
-vnoremap J ]m
-vnoremap K [m
+nnoremap J }
+nnoremap K {
+vnoremap J }
+vnoremap K {
 
 " clipboard/copy/paste
 inoremap <c-t> <ESC>"+pa
@@ -177,11 +233,25 @@ vnoremap <c-y> "+y
 nnoremap <c-y> "+y
 inoremap <c-p> <ESC>"0pa
 nnoremap <c-p> "0p
-inoremap <c-'> <ESC>""pa
-nnoremap <c-'> ""p
-nnoremap <M-J> :join<CR>
+"initiate multiple line yank
+nnoremap yL "lyy
+nnoremap yl "Lyy
+
+" tabs
+nnoremap <leader>tt :-tabnew<cr>
+nnoremap <leader>TT :tabnew<cr>
+" make
+nnoremap <leader>ma :wa<cr> \| :make<cr>
+nnoremap <leader>mu :wa<cr> \| :make um<cr>
 " show buffer lists (and ready to switch)
-nnoremap gl :ls<cr>:b<space>
+nnoremap <leader>b :ls<cr>:b<space>
+" save file
+nnoremap <leader>w :w<cr>
+" save all files and session
+nnoremap <leader>sa :wa<BAR>exe "mksession! " . v:this_session<CR>
+" nnoremap <leader>sa :wa<cr> \| :mks! ~/Working/knitnet/Session.vim<cr>
+" quit buffer without closing window
+nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
 " replace in visual mode
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 vnoremap <C-s> "hy:%s/\<<C-r>h\>//gc<left><left><left>
@@ -206,32 +276,37 @@ vnoremap <A-v> "hy:%s/<C-r>h//gn
 
 """"""""" coc """""""""
 source ~/.vim/coc.vim
+
+" foldings
+nnoremap <space><space> za
+"
+"
+"
 finish
 
 """ quickfix """
 noremap <c-m> :call QuickFixWindowToggle()<CR>
-let g:quick_fix_is_open = 0  
+let g:quick_fix_is_open = 0
 function! QuickFixWindowToggle()
 if g:quick_fix_is_open == 1
-  cclose
-  let g:quick_fix_is_open = 0 
+	cclose
+	let g:quick_fix_is_open = 0
 else
-  copen
-  let g:quick_fix_is_open = 1 
+	copen
+	let g:quick_fix_is_open = 1
 endif
 endfunction
 
 """ location window """
 " toggle location window
 noremap <c-x> :call LocationListWindowToggle()<CR>
-let g:location_list_is_open = 0  
+let g:location_list_is_open = 0
 function! LocationListWindowToggle()
 if g:location_list_is_open == 1
-  lclose
-  let g:location_list_is_open = 0 
+	lclose
+	let g:location_list_is_open = 0
 else
-  lopen
-  let g:location_list_is_open = 1 
+	lopen
+	let g:location_list_is_open = 1
 endif
 endfunction
-   
