@@ -18,7 +18,6 @@ set hidden
 set noerrorbells
 set tabstop=4 softtabstop=0 shiftwidth=4
 set noexpandtab autoindent smartindent
-set guifont=Consolas:h12
 set number
 set wrap
 set smartcase
@@ -52,6 +51,12 @@ set list " Display unprintable characters f12 - switches
 set listchars=nbsp:×,tab:•\ ,trail:•,extends:»,precedes:«
 set background=dark    " Setting dark mode
 set ssop=blank,buffers,curdir,folds,help,tabpages,winsize,terminal
+" set lines=999 columns=999
+
+" set guifont=Consolas:h12
+if has("gui_running")
+	set guifont=Cascadia_Mono:h13:cANSI:qDRAFT
+endif
 
 filetype plugin indent on
 syntax on
@@ -225,7 +230,6 @@ nnoremap J }
 nnoremap K {
 vnoremap J }
 vnoremap K {
-
 " clipboard/copy/paste
 inoremap <c-t> <ESC>"+pa
 nnoremap <c-t> "+p
@@ -233,10 +237,14 @@ vnoremap <c-y> "+y
 nnoremap <c-y> "+y
 inoremap <c-p> <ESC>"0pa
 nnoremap <c-p> "0p
+nnoremap <leader>rr diw"0P
 "initiate multiple line yank
-nnoremap yL "lyy
-nnoremap yl "Lyy
-
+nnoremap <leader>L "lyy
+nnoremap <leader>l "Lyy
+nnoremap <leader>DD "ddd
+nnoremap <leader>dd "Ddd
+vnoremap <leader>D "dd
+vnoremap <leader>d "Dd
 " tabs
 nnoremap <leader>tt :-tabnew<cr>
 nnoremap <leader>TT :tabnew<cr>
@@ -249,9 +257,8 @@ nnoremap <leader>b :ls<cr>:b<space>
 nnoremap <leader>w :w<cr>
 " save all files and session
 nnoremap <leader>sa :wa<BAR>exe "mksession! " . v:this_session<CR>
-" nnoremap <leader>sa :wa<cr> \| :mks! ~/Working/knitnet/Session.vim<cr>
 " quit buffer without closing window
-nnoremap <leader>q :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <leader>qq :bp<bar>sp<bar>bn<bar>bd<CR>
 " replace in visual mode
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 vnoremap <C-s> "hy:%s/\<<C-r>h\>//gc<left><left><left>
