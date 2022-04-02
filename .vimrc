@@ -3,8 +3,9 @@
 " gVim (Win) init file: "~\_vimrc"
 " vim (Linux) init file: "~/.vimrc"
 
+set nocompatible
 set foldmethod=syntax
-set foldlevelstart=1
+set foldlevelstart=0
 set foldnestmax=2
 set exrc
 set secure
@@ -51,15 +52,16 @@ set list " Display unprintable characters f12 - switches
 set listchars=nbsp:×,tab:•\ ,trail:•,extends:»,precedes:«
 set background=dark    " Setting dark mode
 set ssop=blank,buffers,curdir,folds,help,tabpages,winsize,terminal
+set fcs=vert:\ ,fold:-,eob:\ 
 " set lines=999 columns=999
+filetype plugin indent on
+syntax on
 
 " set guifont=Consolas:h12
 if has("gui_running")
 	set guifont=Cascadia_Mono:h13:cANSI:qDRAFT
 endif
 
-filetype plugin indent on
-syntax on
 
 let $RTP=split(&runtimepath, ',')[0]
 
@@ -92,6 +94,7 @@ elseif has('linux')
 	"nnoremap <F4> :source ~/.vimrc<CR>
 	"nnoremap <F11> :mksession! ~/.vim/.today.ses<cr>
 	"nnoremap <F12> :source ~/.vim/.today.ses<cr>
+	" todo: path for vimwiki
 endif
 
 " Install vim-plug: https://github.com/junegunn/vim-plug
@@ -101,6 +104,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'vifm/vifm.vim'
 "Plug 'takac/vim-hardtime'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-flagship'
@@ -118,7 +122,12 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
 "Plug 'jiangmiao/auto-pairs'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'vimwiki/vimwiki'
 call plug#end()
+
+" for vimwiki
+let g:vimwiki_list = [{'path': 'D:/SynologyDrive/Personal/shkVimWiki/', 'path_html': 'D:/SynologyDrive/Personal/shkVimWikiHTM/'}]
+"let g:vimwiki_list = [{'path': 'D:/Dropbox/Private/my_vimwiki/', 'path_html': '~/public_html/'}]
 
 augroup vimrc
 	" Remove all vimrc autocommands
@@ -126,6 +135,9 @@ augroup vimrc
 
 	"" gruvbox
 	autocmd vimenter * ++nested colorscheme gruvbox
+
+	" set fold method indent for different files
+	autocmd FileType vim setlocal foldmethod=indent
 
 	" delete white space at end of lines
 	autocmd BufWritePre *.h,*.cpp   :%s/\s\+$//e
@@ -142,6 +154,7 @@ augroup vimrc
 	" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 	autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 augroup END
+
 
 " for flagship
 set laststatus=2
@@ -237,10 +250,13 @@ vnoremap <c-y> "+y
 nnoremap <c-y> "+y
 inoremap <c-p> <ESC>"0pa
 nnoremap <c-p> "0p
-nnoremap <leader>rr diw"0P
+nnoremap <leader>riw diw"0P
+nnoremap <leader>rr dd"0P
 "initiate multiple line yank
-nnoremap <leader>L "lyy
-nnoremap <leader>l "Lyy
+nnoremap <leader>YY "lyy
+nnoremap <leader>yy "Lyy
+" nnoremap <leader>L "lyy
+" nnoremap <leader>l "Lyy
 nnoremap <leader>DD "ddd
 nnoremap <leader>dd "Ddd
 vnoremap <leader>D "dd
@@ -255,8 +271,11 @@ nnoremap <leader>mu :wa<cr> \| :make um<cr>
 nnoremap <leader>b :ls<cr>:b<space>
 " save file
 nnoremap <leader>w :w<cr>
+" save & source file
+nnoremap <leader>ss :w<BAR>so %<cr>
 " save all files and session
 nnoremap <leader>sa :wa<BAR>exe "mksession! " . v:this_session<CR>
+nnoremap <leader>wa :wa<BAR>exe "mksession! " . v:this_session<CR>
 " quit buffer without closing window
 nnoremap <leader>qq :bp<bar>sp<bar>bn<bar>bd<CR>
 " replace in visual mode
@@ -286,10 +305,38 @@ source ~/.vim/coc.vim
 
 " foldings
 nnoremap <space><space> za
-"
-"
-"
+
 finish
+
+function! Wipeout()
+	" list of *all* buffer numbers
+	let l:buffers = range(1, bufnr('$'))
+	" what tab page are we in?
+	let l:currentTab = tabpagenr()
+	try
+		" go through all tab pages
+		let l:tab = 0
+		while l:tab < tabpagenr('$')
+			let l:tab += 1
+			" go through all windows
+			let l:win = 0
+			while l:win < winnr('$')
+				let l:win += 1
+				" whatever buffer is in this window in this tab, remove it from
+				" l:buffers list
+				let l:thisbuf = winbufnr(l:win)
+				call remove(l:buffers, index(l:buffers, l:thisbuf))
+			endwhile
+		endwhile
+		" if there are any buffers left, delete them
+		if len(l:buffers)
+			execute 'bwipeout' join(l:buffers)
+		endif
+	finally
+		" go back to our original tab page
+		execute 'tabnext' l:currentTab
+	endtry
+endfunction
 
 """ quickfix """
 noremap <c-m> :call QuickFixWindowToggle()<CR>
