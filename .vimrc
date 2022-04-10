@@ -30,7 +30,7 @@ set incsearch
 set termguicolors
 set scrolloff=4
 set showmode
-set colorcolumn=80
+" set colorcolumn=80
 set signcolumn=yes
 set cmdheight=2
 set updatetime=300
@@ -52,7 +52,7 @@ set list " Display unprintable characters f12 - switches
 set listchars=nbsp:×,tab:•\ ,trail:•,extends:»,precedes:«
 set background=dark    " Setting dark mode
 set ssop=blank,buffers,curdir,folds,help,tabpages,winsize,terminal
-set fcs=vert:\ ,fold:-,eob:\ 
+set fcs=vert:\ ,fold:-
 " set lines=999 columns=999
 filetype plugin indent on
 syntax on
@@ -126,8 +126,12 @@ Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " for vimwiki
-let g:vimwiki_list = [{'path': 'D:/SynologyDrive/Personal/shkVimWiki/', 'path_html': 'D:/SynologyDrive/Personal/shkVimWikiHTM/'}]
 "let g:vimwiki_list = [{'path': 'D:/Dropbox/Private/my_vimwiki/', 'path_html': '~/public_html/'}]
+if has('win32')
+	let g:vimwiki_list = [{'path': 'D:/SynologyDrive/Personal/shkVimWiki/', 'path_html': 'D:/SynologyDrive/Personal/shkVimWikiHTM/'}]
+elseif has('linux')
+	let g:vimwiki_list = [{'path': '~/SynologyDrive/Personal/shkVimWiki/', 'path_html': '~/SynologyDrive/Personal/shkVimWikiHTM/'}]
+endif
 
 augroup vimrc
 	" Remove all vimrc autocommands
@@ -162,7 +166,6 @@ set showtabline=2
 set guioptions-=e
 " for tabline in flagship
 " let g:tablabel = "%N%{flagship#tabmodified()} %{flagship#tabcwds('shorten',',')}"
-let g:tablable = "hello"
 
 " Disable tmux navigator when zooming the Vim pane
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -186,6 +189,23 @@ nnoremap <c-n> :NERDTreeToggle<CR>
 " for FZF (fuzzy file finder)
 nnoremap FF :FZF<CR>
 nnoremap FA :FZF ..<CR>
+
+function! s:list_buffers()
+	redir => list
+	silent ls
+	redir END
+	return split(list, "\n")
+endfunction
+
+function! s:delete_buffers(lines)
+	execute 'bwipeout' join(map(a:lines, {_, line -> split(line)[0]}))
+endfunction
+
+command! BD call fzf#run(fzf#wrap({
+			\ 'source': s:list_buffers(),
+			\ 'sink*': { lines -> s:delete_buffers(lines) },
+			\ 'options': '--multi --reverse --bind ctrl-a:select-all+accept'
+			\ }))
 
 " error format
 "set efm=%f:%l:%c:\ error:\ %m
@@ -253,10 +273,8 @@ nnoremap <c-p> "0p
 nnoremap <leader>riw diw"0P
 nnoremap <leader>rr dd"0P
 "initiate multiple line yank
-nnoremap <leader>YY "lyy
-nnoremap <leader>yy "Lyy
-" nnoremap <leader>L "lyy
-" nnoremap <leader>l "Lyy
+nnoremap <leader>YY "yyy
+nnoremap <leader>yy "Yyy
 nnoremap <leader>DD "ddd
 nnoremap <leader>dd "Ddd
 vnoremap <leader>D "dd
@@ -268,16 +286,21 @@ nnoremap <leader>TT :tabnew<cr>
 nnoremap <leader>ma :wa<cr> \| :make<cr>
 nnoremap <leader>mu :wa<cr> \| :make um<cr>
 " show buffer lists (and ready to switch)
-nnoremap <leader>b :ls<cr>:b<space>
+" nnoremap <leader>b :ls<cr>:b<space>
+nnoremap <leader>b :Buffers<CR>
 " save file
-nnoremap <leader>w :w<cr>
+nnoremap <leader>sf :w<cr>
+" save session
+nnoremap <leader>ss :exe "mksession! " . v:this_session<CR>
 " save & source file
-nnoremap <leader>ss :w<BAR>so %<cr>
+nnoremap <leader>so :w<BAR>source %<cr>
 " save all files and session
-nnoremap <leader>sa :wa<BAR>exe "mksession! " . v:this_session<CR>
-nnoremap <leader>wa :wa<BAR>exe "mksession! " . v:this_session<CR>
+nnoremap <leader>sa :wall<CR>
 " quit buffer without closing window
-nnoremap <leader>qq :bp<bar>sp<bar>bn<bar>bd<CR>
+nnoremap <leader>qf :bp<bar>sp<bar>bn<bar>bd<CR>
+" quit vim
+nnoremap <leader>ZZ :wqall<CR>
+nnoremap <leader>ZQ :qall<CR>
 " replace in visual mode
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 vnoremap <C-s> "hy:%s/\<<C-r>h\>//gc<left><left><left>
