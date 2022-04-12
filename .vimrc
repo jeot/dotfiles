@@ -30,6 +30,7 @@ set incsearch
 set termguicolors
 set scrolloff=4
 set showmode
+set showcmd
 " set colorcolumn=80
 set signcolumn=yes
 set cmdheight=2
@@ -53,11 +54,18 @@ set listchars=nbsp:×,tab:•\ ,trail:•,extends:»,precedes:«
 set background=dark    " Setting dark mode
 set ssop=blank,buffers,curdir,folds,help,tabpages,winsize,terminal
 set fcs=vert:\ ,fold:-
+set cul "cursorline
 " set lines=999 columns=999
 filetype plugin indent on
 syntax on
 
+""""""""""""""" test
+hi clear SpellBad
+hi SpellBad cterm=underline
+" Set style for gVim
+hi SpellBad gui=undercurl
 " set guifont=Consolas:h12
+
 if has("gui_running")
 	set guifont=Cascadia_Mono:h13:cANSI:qDRAFT
 endif
@@ -210,50 +218,34 @@ command! BD call fzf#run(fzf#wrap({
 " error format
 "set efm=%f:%l:%c:\ error:\ %m
 
-"Key mappings
-"inoremap <S-CR> <ESC>
-"nnoremap <S-CR> <ESC>
-"vnoremap <S-CR> <ESC>gV
-"onoremap <S-CR> <Esc>
-"cnoremap <S-CR> <C-C><Esc>
-" record and repeat keys on multiple lines: qq q
-nnoremap <space><CR> @q
-vnoremap <space><CR> :norm @q<CR>
-" Find files using Telescope command-line sugar.
-"nnoremap <space>ff <cmd>Telescope find_files<cr>
-"nnoremap <space>fg <cmd>Telescope live_grep<cr>
-"nnoremap <space>fb <cmd>Telescope buffers<cr>
-"nnoremap <space>fh <cmd>Telescope help_tags<cr>
-" moveing lines
-if has('gui_running')
-	nnoremap <A-j> :m+<CR>
-	nnoremap <A-k> :m-2<CR>
-	inoremap <A-k> <Esc>:m-2<CR>gi
-	inoremap <A-j> <Esc>:m+<CR>gi
-	vnoremap <A-j> :m'>+<CR>gv
-	vnoremap <A-k> :m-2<CR>gv
-	nnoremap <A-l> xp
-	nnoremap <A-h> xhP
-	nnoremap <A-e> xep
-	nnoremap <A-b> xbP
-else
-	" nnoremap j :m+<CR>
-	" nnoremap k :m-2<CR>
-	" inoremap k <Esc>:m-2<CR>gi
-	" inoremap j <Esc>:m+<CR>gi
-	" vnoremap j :m'>+<CR>gv
-	" vnoremap k :m-2<CR>gv
-	" nnoremap l xp
-	" nnoremap h xhP
-	" nnoremap e xep
-	" nnoremap b xbP
-endif
+" yank to end of line
+nnoremap Y y$
+" center next find
+nnoremap n nzzzv
+nnoremap N Nzzzv
+" more undo poings when writing
+inoremap , ,<c-g>u
+inoremap . .<c-g>u
+inoremap ! !<c-g>u
+inoremap ? ?<c-g>u
 
 " zooming
 "noremap zi <c-w>_ \| <c-w>\|
 "noremap zo <c-w>=
 
-" going around
+let mapleader = " " " map leader to Space
+
+" record and repeat keys on multiple lines: qq q
+nnoremap <leader><CR> @q
+vnoremap <leader><CR> :norm @q<CR>
+" moveing lines
+nnoremap <leader>kk :m .-2<CR>==
+nnoremap <leader>jj :m .+1<CR>==
+inoremap <c-k> <Esc>:m .-2<CR>gi
+inoremap <c-j> <Esc>:m .+1<CR>gi
+vnoremap <c-k> :m '<-2<CR>gv=gv
+" going around (handled by vim-tmux-navigator)
+vnoremap <c-j> :m '>+1<CR>gv=gv
 "nnoremap <C-h> <c-w>h
 "nnoremap <C-l> <c-w>l
 "nnoremap <C-j> <c-w>j
@@ -263,14 +255,17 @@ nnoremap J }
 nnoremap K {
 vnoremap J }
 vnoremap K {
-" clipboard/copy/paste
-inoremap <c-t> <ESC>"+pa
-nnoremap <c-t> "+p
+" clipboard copy/paste
+inoremap <c-p> <ESC>"+pa
+nnoremap <c-p> "+p
 vnoremap <c-y> "+y
 nnoremap <c-y> "+y
-inoremap <c-p> <ESC>"0pa
-nnoremap <c-p> "0p
+" inoremap <leader>p <ESC>"0pa
+nnoremap <leader>p "0p
+nnoremap <leader>P "0P
 nnoremap <leader>riw diw"0P
+nnoremap <leader>re de"0P
+nnoremap <leader>rb db"0P
 nnoremap <leader>rr dd"0P
 "initiate multiple line yank
 nnoremap <leader>YY "yyy
@@ -287,9 +282,11 @@ nnoremap <leader>ma :wa<cr> \| :make<cr>
 nnoremap <leader>mu :wa<cr> \| :make um<cr>
 " show buffer lists (and ready to switch)
 " nnoremap <leader>b :ls<cr>:b<space>
-nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>ls :Buffers<CR>
 " save file
 nnoremap <leader>sf :w<cr>
+" save and quit buffer
+nnoremap <leader>x :wq<cr>
 " save session
 nnoremap <leader>ss :exe "mksession! " . v:this_session<CR>
 " save & source file
@@ -301,27 +298,13 @@ nnoremap <leader>qf :bp<bar>sp<bar>bn<bar>bd<CR>
 " quit vim
 nnoremap <leader>ZZ :wqall<CR>
 nnoremap <leader>ZQ :qall<CR>
+
 " replace in visual mode
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 vnoremap <C-s> "hy:%s/\<<C-r>h\>//gc<left><left><left>
 " count
 nnoremap <A-v> "hyiw:%s/<C-r>h//gn
 vnoremap <A-v> "hy:%s/<C-r>h//gn
-
-""""""""" YCM & Clangd
-"let g:ycm_auto_hover=''
-"let g:ycm_clangd_uses_ycmd_caching = 0
-"let g:ycm_add_preview_to_completeopt = 0
-"nmap <leader>D <plug>(YCMHover)
-"nmap <leader><leader> :YcmCompleter GoTo<CR>
-"nmap <leader>gd :YcmCompleter GetDoc<CR>
-"nmap <leader>gt :YcmCompleter GetType<CR>
-"nmap <leader>gp :YcmCompleter GetParent<CR>
-"nmap <leader>i :YcmCompleter GoToInclude<CR>
-"nmap <leader>f :YcmCompleter GoToDefinition<CR>
-"nmap <leader>d :YcmCompleter GoToDeclaration<CR>
-"nmap <leader>yd :YcmDiags<CR>
-"nmap <leader>fi :YcmCompleter FixIt<CR>
 
 """"""""" coc """""""""
 source ~/.vim/coc.vim
@@ -330,36 +313,6 @@ source ~/.vim/coc.vim
 nnoremap <space><space> za
 
 finish
-
-function! Wipeout()
-	" list of *all* buffer numbers
-	let l:buffers = range(1, bufnr('$'))
-	" what tab page are we in?
-	let l:currentTab = tabpagenr()
-	try
-		" go through all tab pages
-		let l:tab = 0
-		while l:tab < tabpagenr('$')
-			let l:tab += 1
-			" go through all windows
-			let l:win = 0
-			while l:win < winnr('$')
-				let l:win += 1
-				" whatever buffer is in this window in this tab, remove it from
-				" l:buffers list
-				let l:thisbuf = winbufnr(l:win)
-				call remove(l:buffers, index(l:buffers, l:thisbuf))
-			endwhile
-		endwhile
-		" if there are any buffers left, delete them
-		if len(l:buffers)
-			execute 'bwipeout' join(l:buffers)
-		endif
-	finally
-		" go back to our original tab page
-		execute 'tabnext' l:currentTab
-	endtry
-endfunction
 
 """ quickfix """
 noremap <c-m> :call QuickFixWindowToggle()<CR>
