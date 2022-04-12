@@ -1,5 +1,8 @@
 # copy original files to this directory
 
+# my own bash
+cp ~/shk_startup.sh ./shk_startup
+
 # the .vimrc file
 cp ~/.vimrc ./.vimrc
 
@@ -21,3 +24,6 @@ cp ~/.vim/coc-settings.json ./.vim/coc-settings.json
 
 # the keybindings
 cp ~/.xbindkeysrc ./.xbindkeysrc
+
+# the keybindings
+cp ~/app_installs.md ./app_installs.md
