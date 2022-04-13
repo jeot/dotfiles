@@ -6,8 +6,9 @@ cp ./shk_startup.sh ~/shk_startup.sh
 # the .vimrc file
 cp ./.vimrc ~/.vimrc 
 
-# the .bashrc
+# the .bashrc & .profile
 cp ./.bashrc ~/.bashrc
+cp ./.profile ~/.profile
 
 # the tmux configuration
 cp ./.tmux.conf ~/.tmux.conf
