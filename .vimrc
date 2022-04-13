@@ -178,6 +178,8 @@ set guioptions-=e
 " Disable tmux navigator when zooming the Vim pane
 let g:tmux_navigator_disable_when_zoomed = 1
 
+" my name is shamim keshani "
+
 "" airline theme
 let g:airline_theme='minimalist'
 
@@ -235,6 +237,9 @@ inoremap ? ?<c-g>u
 
 let mapleader = " " " map leader to Space
 
+" send commands to be executed in other tmux pane
+nnoremap <silent> <leader>et :exe "!tmux send -t .+ 'echo " . getline('.') . "' Enter"<CR>
+nnoremap <silent> <leader>ee :exe "!tmux send -t .+ '" . getline('.') . "' Enter"<CR>
 " record and repeat keys on multiple lines: qq q
 nnoremap <leader><CR> @q
 vnoremap <leader><CR> :norm @q<CR>

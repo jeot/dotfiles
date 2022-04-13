@@ -1,7 +1,7 @@
 # copy original files to this directory
 
 # my own bash
-cp ~/shk_startup.sh ./shk_startup
+cp ~/shk_startup.sh ./shk_startup.sh
 
 # the .vimrc file
 cp ~/.vimrc ./.vimrc
