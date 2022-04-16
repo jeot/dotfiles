@@ -5,7 +5,7 @@
 
 set nocompatible
 set foldmethod=syntax
-set foldlevelstart=0
+set foldlevelstart=-1
 set foldnestmax=2
 set exrc
 set secure
@@ -35,6 +35,7 @@ set showcmd
 set signcolumn=yes
 set cmdheight=2
 set updatetime=300
+set timeout timeoutlen=3000 ttimeoutlen=10
 set shortmess+=c
 set encoding=utf-8
 set backspace=indent,eol,start " Allow backspacing over everything in insert mode.
@@ -116,19 +117,19 @@ Plug 'vifm/vifm.vim'
 "Plug 'takac/vim-hardtime'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-flagship'
-" Plug 'tpope/vim-endwise'
 Plug 'cohama/lexima.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
+
 "Plug 'jacoborus/tender.vim'
 Plug 'morhetz/gruvbox'
+
 "Plug 'itchyny/lightline.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-"Plug 'preservim/nerdcommenter'
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'preservim/nerdtree'
-"Plug 'jiangmiao/auto-pairs'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'vimwiki/vimwiki'
 call plug#end()
@@ -198,7 +199,6 @@ nnoremap <c-n> :NERDTreeToggle<CR>
 
 " for FZF (fuzzy file finder)
 nnoremap FF :FZF<CR>
-nnoremap FA :FZF ..<CR>
 
 function! s:list_buffers()
 	redir => list
@@ -237,6 +237,12 @@ inoremap ? ?<c-g>u
 
 let mapleader = " " " map leader to Space
 
+" vimwiki remappings
+" nmap <Leader>w<Space> <Plug>VimwikiIndex
+nmap <Leader>tl <Plug>VimwikiToggleListItem
+vmap <Leader>tl <Plug>VimwikiToggleListItem
+" auto indent inside {  }
+nnoremap <leader>= =i{
 " send commands to be executed in other tmux pane
 nnoremap <silent> <leader>et :exe "!tmux send -t .+ 'echo " . getline('.') . "' Enter"<CR>
 nnoremap <silent> <leader>ee :exe "!tmux send -t .+ '" . getline('.') . "' Enter"<CR>
@@ -249,8 +255,8 @@ nnoremap <leader>jj :m .+1<CR>==
 inoremap <c-k> <Esc>:m .-2<CR>gi
 inoremap <c-j> <Esc>:m .+1<CR>gi
 vnoremap <c-k> :m '<-2<CR>gv=gv
-" going around (handled by vim-tmux-navigator)
 vnoremap <c-j> :m '>+1<CR>gv=gv
+" going around (handled by vim-tmux-navigator)
 "nnoremap <C-h> <c-w>h
 "nnoremap <C-l> <c-w>l
 "nnoremap <C-j> <c-w>j
@@ -285,11 +291,17 @@ nnoremap <leader>TT :tabnew<cr>
 " make
 nnoremap <leader>ma :wa<cr> \| :make<cr>
 nnoremap <leader>mu :wa<cr> \| :make um<cr>
+" show command list
+nnoremap <leader>; :<c-f>
 " show buffer lists (and ready to switch)
 " nnoremap <leader>b :ls<cr>:b<space>
 nnoremap <leader>ls :Buffers<CR>
 " save file
 nnoremap <leader>sf :w<cr>
+" close file
+nnoremap <leader>q :q<cr>
+" close file
+nnoremap <leader>Q :q!<cr>
 " save and quit buffer
 nnoremap <leader>x :wq<cr>
 " save session
@@ -299,7 +311,7 @@ nnoremap <leader>so :w<BAR>source %<cr>
 " save all files and session
 nnoremap <leader>sa :wall<CR>
 " quit buffer without closing window
-nnoremap <leader>qf :bp<bar>sp<bar>bn<bar>bd<CR>
+" nnoremap <leader>qf :bp<bar>sp<bar>bn<bar>bd<CR>
 " quit vim
 nnoremap <leader>ZZ :wqall<CR>
 nnoremap <leader>ZQ :qall<CR>
