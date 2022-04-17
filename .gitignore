@@ -1,0 +1,15 @@
+*
+!.config
+!.vim
+!.bashrc
+!.gitignore
+!.profile
+!.tmux.conf
+!.vimrc
+!.xbindkeysrc
+!app_installs.md
+!getfiles.sh
+!LICENSE
+!README.md
+!setfiles.sh
+!shk_startup.sh

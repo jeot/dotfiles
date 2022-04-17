@@ -68,10 +68,16 @@ hi SpellBad gui=undercurl
 " set guifont=Consolas:h12
 
 if has("gui_running")
-	set guifont=Cascadia_Mono:h13:cANSI:qDRAFT
+	set guifont=Cascadia_Mono:h12:cANSI:qDRAFT
+	" set guioptions-=T " remove toolbar
+	" set guioptions-=m " remove menubar
+	set guioptions=c
 endif
 
-
+" unix style runtime paths
+let &runtimepath="$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after"
+" let &runtimepath=",~/.vim" . &runtimepath
+" echo &runtimepath
 let $RTP=split(&runtimepath, ',')[0]
 
 nnoremap <F3> :-tabe ~/.vimrc<CR> \| :tcd ~<CR>
@@ -79,11 +85,13 @@ nnoremap <F4> :source ~/.vimrc<CR>
 "nnoremap <F11> :mksession! ~/.vim/.today.ses<cr>
 "nnoremap <F12> :source ~/.vim/.today.ses<cr>
 if has('win32')
+
 	"echo "Someone please open the Window(s)!"
 	"let $RC="$HOME\_vimrc"
-	let $RC="$HOME\.vimrc"
+	let $RC="$HOME/.vimrc"
+	" let $VIMCONFIG="$HOME/.vim"
 	unlet! skip_defaults_vim
-	source $VIMRUNTIME/defaults.vim
+	source $VIMRUNTIME\defaults.vim
 	set completeopt=menuone,noinsert,noselect,popup
 	"nnoremap <F3> :e ~\_vimrc<CR>
 	"nnoremap <F4> :source ~\_vimrc<CR>
@@ -97,6 +105,7 @@ if has('win32')
 elseif has('linux')
 	"echo "we are in linux!"
 	let $RC="$HOME/.vimrc"
+	" let $VIMCONFIG="$HOME/.vim"
 	set completeopt=menuone,noinsert,noselect,popup
 	set undodir=~/.vim/undodir
 	"nnoremap <F3> :e ~/.vimrc<CR>
@@ -141,6 +150,9 @@ if has('win32')
 elseif has('linux')
 	let g:vimwiki_list = [{'path': '~/SynologyDrive/Personal/shkVimWiki/', 'path_html': '~/SynologyDrive/Personal/shkVimWikiHTM/'}]
 endif
+
+" coc-extensions
+let g:coc_global_extensions = ['coc-json', 'coc-pyright']
 
 augroup vimrc
 	" Remove all vimrc autocommands
