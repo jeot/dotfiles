@@ -130,7 +130,7 @@ Plug 'cohama/lexima.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 
-"Plug 'jacoborus/tender.vim'
+Plug 'jacoborus/tender.vim'
 Plug 'morhetz/gruvbox'
 
 "Plug 'itchyny/lightline.vim'
@@ -181,6 +181,11 @@ augroup vimrc
 augroup END
 
 
+" for gruvbox
+let g:gruvbox_contrast_dark="soft"
+" let g:gruvbox_contrast_dark="medium"
+" let g:gruvbox_contrast_dark="hard"
+
 " for flagship
 set laststatus=2
 set showtabline=2
@@ -194,10 +199,11 @@ let g:tmux_navigator_disable_when_zoomed = 1
 " my name is shamim keshani "
 
 "" airline theme
-let g:airline_theme='minimalist'
+" let g:airline_theme='minimalist'
+" let g:airline_theme='simple'
 
 "" tender theme
-"colorscheme tender
+" colorscheme tender
 
 let g:hardtime_default_on = 0
 let g:hardtime_allow_different_key = 1
@@ -340,6 +346,7 @@ source ~/.vim/coc.vim
 
 " foldings
 nnoremap <space><space> za
+nnoremap zo zO
 
 finish
 
