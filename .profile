@@ -30,3 +30,6 @@ fi
 if [ -d "$HOME/.platformio/penv/bin" ] ; then
     PATH="$HOME/.platformio/penv/bin:$PATH"
 fi
+
+# include arm compiler toolchain
+export PATH=$PATH:$HOME/arm/gcc-arm-none-eabi-10.3-2021.10/bin
