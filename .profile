@@ -32,4 +32,11 @@ if [ -d "$HOME/.platformio/penv/bin" ] ; then
 fi
 
 # include arm compiler toolchain
-export PATH=$PATH:$HOME/arm/gcc-arm-none-eabi-10.3-2021.10/bin
+if [ -d "$HOME/arm/gcc-arm-none-eabi-10.3-2021.10/bin" ] ; then
+	PATH="$PATH:$HOME/arm/gcc-arm-none-eabi-10.3-2021.10/bin"
+fi
+
+# include the clangd installed by nvim-lsp-installer
+if [ -d "$HOME/.local/share/nvim/lsp_servers/clangd/clangd/bin" ] ; then
+	PATH="$PATH:$HOME/.local/share/nvim/lsp_servers/clangd/clangd/bin"
+fi

@@ -1,7 +1,8 @@
 require('packer').startup(
 function()
 	use 'wbthomason/packer.nvim'
-	use 'tomasr/molokai'
+	-- use 'tomasr/molokai'
+	use 'sainnhe/gruvbox-material'
 	use {
 	'vimwiki/vimwiki',
 	config = function()
@@ -27,4 +28,36 @@ function()
 		vim.api.nvim_set_keymap('n', '<c-n>', ':Alpha<cr>', { noremap = true })
 	end
 	}
+
+	-- IDE
+	use {
+		'nvim-treesitter/nvim-treesitter',
+		run = ':TSUpdate'
+	}
+	require'nvim-treesitter.configs'.setup {
+		ensure_installed = "all",
+		highlight = {
+			enable = true,
+		},
+		indent = {
+			enable = true,
+		}
+	}
+	use 'neovim/nvim-lspconfig'
+	use 'williamboman/nvim-lsp-installer'
+	require("nvim-lsp-installer").on_server_ready(function(server)
+		local opts = {}
+		if server.name == "sumneko_lua" then
+			opts = {
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { 'vim', 'use' }
+						},
+					}
+				}
+			}
+		end
+		server:setup(opts)
+	end)
 end)
