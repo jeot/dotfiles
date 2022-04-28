@@ -23,6 +23,8 @@ function()
 		startify.section.bottom_buttons.val = {
 			startify.button("e", "new file", ":ene <bar> startinsert <cr>"),
 			startify.button("v", "neovim config", ":e ~/.config/nvim/init.lua<cr>"),
+			startify.button("ai", "neovim config", ":e ~/app_installs.md<cr>"),
+			startify.button("x", ".vimrc config", ":e ~/.vimrc<cr>"),
 			startify.button("q", "quit nvim", ":qa<cr>")
 		}
 		vim.api.nvim_set_keymap('n', '<c-n>', ':Alpha<cr>', { noremap = true })
@@ -60,4 +62,16 @@ function()
 		end
 		server:setup(opts)
 	end)
+	use {
+		'nvim-telescope/telescope.nvim',
+		requires = { {'nvim-lua/plenary.nvim'} }
+	}
+	use 'tpope/vim-obsession'
+	use {
+		'kyazdani42/nvim-tree.lua',
+		requires = {
+			'kyazdani42/nvim-web-devicons', -- optional, for file icon
+		}
+	}
+	require'nvim-tree'.setup { }
 end)

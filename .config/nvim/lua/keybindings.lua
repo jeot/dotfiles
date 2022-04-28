@@ -1,3 +1,7 @@
+-- set leader key
+vim.g.mapleader = ' '
+
+
 local keymap = vim.api.nvim_set_keymap
 keymap('n', '<c-s>', ':w<CR>', {})
 keymap('i', '<c-s>', '<Esc>:w<CR>a', {})
@@ -22,6 +26,22 @@ nkeymap('gw', ':lua vim.lsp.buf.workspace_symbol()<cr>')
 nkeymap('gr', ':lua vim.lsp.buf.references()<cr>')
 nkeymap('gt', ':lua vim.lsp.buf.type_definition()<cr>')
 nkeymap('K', ':lua vim.lsp.buf.hover()<cr>')
-nkeymap('<c-k>', ':lua vim.lsp.buf.signature_help()<cr>')
+--nkeymap('<c-k>', ':lua vim.lsp.buf.signature_help()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
+
+
+-- clipboard copy/paste
+keymap('i', '<c-p>', '<ESC>"+pa', opts)
+keymap('n', '<c-p>', '"+p', opts)
+keymap('v', '<c-y>', '"+y', opts)
+keymap('n', '<c-y>', '"+y', opts)
+
+-- telescope keymaps using Lua functions
+keymap('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<cr>', opts)
+keymap('n', '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep()<cr>', opts)
+keymap('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<cr>', opts)
+keymap('n', '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<cr>', opts)
+
+-- nvim-tree
+keymap('n', '<C-f>', '<cmd>NvimTreeToggle<CR>', opts)

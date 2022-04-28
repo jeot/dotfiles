@@ -11,8 +11,15 @@ sudo apt-get install vim-gtk3 -y
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 # run :PlugInstall
 
+# install neovim (the latest version)
+snap install nvim --edge --classic
+# install package manager for neovim
+git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+# run :PackerSync
+
 ####################
 ### From here you should be able to send commands in TMUX pane using <leader>ee from VIM
+### Todo: how to send commands to TMUX pane (or even run them directly) from neovim?
 
 # git
 sudo apt install git 
@@ -81,6 +88,12 @@ sudo apt-get install sublime-merge
 
 # install photo editor app like MS Paint
 sudo snap install pinta
+
+# install fd (simple file finder)
+sudo apt install fd-find
+
+# install ripgrep
+sudo apt-get install ripgrep
 
 ################ optional (do we really need them?)
 
