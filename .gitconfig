@@ -1,0 +1,5 @@
+[core]
+	pager = less -x1,5
+[user]
+	email = sh.keshani@gmail.com
+	name = Shamim Keshani
