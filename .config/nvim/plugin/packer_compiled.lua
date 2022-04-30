@@ -80,6 +80,11 @@ _G.packer_plugins = {
     path = "/home/shk/.local/share/nvim/site/pack/packer/start/gruvbox-material",
     url = "https://github.com/sainnhe/gruvbox-material"
   },
+  ["lexima.vim"] = {
+    loaded = true,
+    path = "/home/shk/.local/share/nvim/site/pack/packer/start/lexima.vim",
+    url = "https://github.com/cohama/lexima.vim"
+  },
   ["nvim-lsp-installer"] = {
     loaded = true,
     path = "/home/shk/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer",
@@ -120,13 +125,38 @@ _G.packer_plugins = {
     path = "/home/shk/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["vim-airline"] = {
+    loaded = true,
+    path = "/home/shk/.local/share/nvim/site/pack/packer/start/vim-airline",
+    url = "https://github.com/vim-airline/vim-airline"
+  },
+  ["vim-airline-themes"] = {
+    loaded = true,
+    path = "/home/shk/.local/share/nvim/site/pack/packer/start/vim-airline-themes",
+    url = "https://github.com/vim-airline/vim-airline-themes"
+  },
+  ["vim-commentary"] = {
+    loaded = true,
+    path = "/home/shk/.local/share/nvim/site/pack/packer/start/vim-commentary",
+    url = "https://github.com/tpope/vim-commentary"
+  },
   ["vim-obsession"] = {
     loaded = true,
     path = "/home/shk/.local/share/nvim/site/pack/packer/start/vim-obsession",
     url = "https://github.com/tpope/vim-obsession"
   },
+  ["vim-surround"] = {
+    loaded = true,
+    path = "/home/shk/.local/share/nvim/site/pack/packer/start/vim-surround",
+    url = "https://github.com/tpope/vim-surround"
+  },
+  ["vim-tmux-navigator"] = {
+    loaded = true,
+    path = "/home/shk/.local/share/nvim/site/pack/packer/start/vim-tmux-navigator",
+    url = "https://github.com/christoomey/vim-tmux-navigator"
+  },
   vimwiki = {
-    config = { "\27LJ\2\nb\0\0\3\0\4\0\a6\0\0\0009\0\1\0004\1\3\0005\2\3\0>\2\1\1=\1\2\0K\0\1\0\1\0\2\14path_html\19~/my_site_html\tpath\15~/my_site/\17vimwiki_list\6g\bvim\0" },
+    config = { "\27LJ\2\næ\2\0\0\4\0\t\1\0304\0\0\0006\1\0\0009\1\1\0019\1\2\1'\3\3\0B\1\2\2\t\1\0\0X\1\5€4\1\3\0005\2\4\0>\2\1\1\18\0\1\0X\1\r€6\1\0\0009\1\1\0019\1\2\1'\3\5\0B\1\2\2\t\1\0\0X\1\5€4\1\3\0005\2\6\0>\2\1\1\18\0\1\0X\1\1€4\0\0\0006\1\0\0009\1\a\1=\0\b\1K\0\1\0\17vimwiki_list\6g\1\0\2\14path_html,~/SynologyDrive/Personal/shkVimWikiHTM/\tpath)~/SynologyDrive/Personal/shkVimWiki/\nlinux\1\0\2\14path_html-D:/SynologyDrive/Personal/shkVimWikiHTM/\tpath*D:/SynologyDrive/Personal/shkVimWiki/\nwin32\bhas\afn\bvim\2\0" },
     loaded = true,
     path = "/home/shk/.local/share/nvim/site/pack/packer/start/vimwiki",
     url = "https://github.com/vimwiki/vimwiki"
@@ -134,14 +164,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: vimwiki
-time([[Config for vimwiki]], true)
-try_loadstring("\27LJ\2\nb\0\0\3\0\4\0\a6\0\0\0009\0\1\0004\1\3\0005\2\3\0>\2\1\1=\1\2\0K\0\1\0\1\0\2\14path_html\19~/my_site_html\tpath\15~/my_site/\17vimwiki_list\6g\bvim\0", "config", "vimwiki")
-time([[Config for vimwiki]], false)
 -- Config for: alpha-nvim
 time([[Config for alpha-nvim]], true)
 try_loadstring("\27LJ\2\n™\4\0\0\b\0\30\00176\0\0\0'\2\1\0B\0\2\0029\0\2\0006\2\0\0'\4\3\0B\2\2\0029\2\4\2B\0\2\0016\0\0\0'\2\3\0B\0\2\0029\1\5\0009\1\6\0014\2\6\0009\3\b\0'\5\t\0'\6\n\0'\a\v\0B\3\4\2>\3\1\0029\3\b\0'\5\f\0'\6\r\0'\a\14\0B\3\4\2>\3\2\0029\3\b\0'\5\15\0'\6\r\0'\a\16\0B\3\4\2>\3\3\0029\3\b\0'\5\17\0'\6\18\0'\a\19\0B\3\4\2>\3\4\0029\3\b\0'\5\20\0'\6\21\0'\a\22\0B\3\4\0?\3\0\0=\2\a\0016\1\23\0009\1\24\0019\1\25\1'\3\26\0'\4\27\0'\5\28\0005\6\29\0B\1\5\1K\0\1\0\1\0\1\fnoremap\2\15:Alpha<cr>\n<c-n>\6n\20nvim_set_keymap\bapi\bvim\f:qa<cr>\14quit nvim\6q\20:e ~/.vimrc<cr>\18.vimrc config\6x\29:e ~/app_installs.md<cr>\aai#:e ~/.config/nvim/init.lua<cr>\18neovim config\6v :ene <bar> startinsert <cr>\rnew file\6e\vbutton\bval\19bottom_buttons\fsection\vconfig\26alpha.themes.startify\nsetup\nalpha\frequire\v€€À™\4\0", "config", "alpha-nvim")
 time([[Config for alpha-nvim]], false)
+-- Config for: vimwiki
+time([[Config for vimwiki]], true)
+try_loadstring("\27LJ\2\næ\2\0\0\4\0\t\1\0304\0\0\0006\1\0\0009\1\1\0019\1\2\1'\3\3\0B\1\2\2\t\1\0\0X\1\5€4\1\3\0005\2\4\0>\2\1\1\18\0\1\0X\1\r€6\1\0\0009\1\1\0019\1\2\1'\3\5\0B\1\2\2\t\1\0\0X\1\5€4\1\3\0005\2\6\0>\2\1\1\18\0\1\0X\1\1€4\0\0\0006\1\0\0009\1\a\1=\0\b\1K\0\1\0\17vimwiki_list\6g\1\0\2\14path_html,~/SynologyDrive/Personal/shkVimWikiHTM/\tpath)~/SynologyDrive/Personal/shkVimWiki/\nlinux\1\0\2\14path_html-D:/SynologyDrive/Personal/shkVimWikiHTM/\tpath*D:/SynologyDrive/Personal/shkVimWiki/\nwin32\bhas\afn\bvim\2\0", "config", "vimwiki")
+time([[Config for vimwiki]], false)
 if should_profile then save_profiles() end
 
 end)

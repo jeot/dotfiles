@@ -1,17 +1,34 @@
 require('packer').startup(
 function()
 	use 'wbthomason/packer.nvim'
-	-- use 'tomasr/molokai'
+	use 'cohama/lexima.vim'
+	use 'tpope/vim-surround'
+	use 'tpope/vim-commentary'
 	use 'sainnhe/gruvbox-material'
+	use 'vim-airline/vim-airline'
+	use 'vim-airline/vim-airline-themes'
+	use 'christoomey/vim-tmux-navigator'
+	vim.g.tmux_navigator_disable_when_zoomed = 1
 	use {
 	'vimwiki/vimwiki',
 	config = function()
-		vim.g.vimwiki_list = {
-		{
-			path = '~/my_site/',
-			path_html = '~/my_site_html'
-		}
-		}
+		local opts = {}
+		if vim.fn.has('win32') == 1 then
+			opts = {
+				{
+					path = 'D:/SynologyDrive/Personal/shkVimWiki/',
+					path_html = 'D:/SynologyDrive/Personal/shkVimWikiHTM/'
+				}
+			}
+		elseif vim.fn.has('linux') == 1 then
+			opts = {
+				{
+					path = '~/SynologyDrive/Personal/shkVimWiki/',
+					path_html = '~/SynologyDrive/Personal/shkVimWikiHTM/'
+				}
+			}
+		else opts = {} end
+		vim.g.vimwiki_list = opts
 	end
 	}
 	use {
@@ -45,6 +62,8 @@ function()
 			enable = true,
 		}
 	}
+	vim.opt.foldmethod = 'expr'
+	vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 	use 'neovim/nvim-lspconfig'
 	use 'williamboman/nvim-lsp-installer'
 	require("nvim-lsp-installer").on_server_ready(function(server)
