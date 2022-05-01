@@ -38,10 +38,10 @@ function()
 		require'alpha'.setup(require'alpha.themes.startify'.config)
 		local startify = require('alpha.themes.startify')
 		startify.section.bottom_buttons.val = {
-			startify.button("e", "new file", ":ene <bar> startinsert <cr>"),
-			startify.button("v", "neovim config", ":e ~/.config/nvim/init.lua<cr>"),
-			startify.button("ai", "neovim config", ":e ~/app_installs.md<cr>"),
-			startify.button("x", ".vimrc config", ":e ~/.vimrc<cr>"),
+			startify.button("vn", "neovim config", ":e ~/.config/nvim/init.lua<cr>"),
+			startify.button("vv", ".vimrc config", ":e ~/.vimrc<cr>"),
+			startify.button("vq", "qt-config", ":e ~/.config/nvim/ginit.vim<cr>"),
+			startify.button("ai", "app installs quick note", ":e ~/app_installs.md<cr>"),
 			startify.button("q", "quit nvim", ":qa<cr>")
 		}
 		vim.api.nvim_set_keymap('n', '<c-n>', ':Alpha<cr>', { noremap = true })
@@ -54,7 +54,8 @@ function()
 		run = ':TSUpdate'
 	}
 	require'nvim-treesitter.configs'.setup {
-		ensure_installed = "all",
+		ensure_installed = { "bash", "c", "cpp", "c_sharp", "lua", "css", "hjson", "help", "javascript", "java", "json", "latex", "markdown", "php", "python", "ruby", "tsx", "typescript", "vim" },
+		-- ensure_installed = "all",
 		highlight = {
 			enable = true,
 		},
@@ -66,6 +67,9 @@ function()
 	vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 	use 'neovim/nvim-lspconfig'
 	use 'williamboman/nvim-lsp-installer'
+	-- require("nvim-lsp-installer").setup({
+	-- 	ensure_installed = { "clangd", "cssls", "html", "jsonls", "sumneko_lua", "pyright" } -- ensure these servers are always installed
+	-- })
 	require("nvim-lsp-installer").on_server_ready(function(server)
 		local opts = {}
 		if server.name == "sumneko_lua" then

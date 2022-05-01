@@ -69,6 +69,7 @@ hi SpellBad gui=undercurl
 
 if has("gui_running")
 	set guifont=Cascadia_Mono:h12:cANSI:qDRAFT
+	set guifont="Ubuntu Mono Nerd Font":h18
 	" set guioptions-=T " remove toolbar
 	" set guioptions-=m " remove menubar
 	set guioptions=c

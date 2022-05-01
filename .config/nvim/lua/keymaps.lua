@@ -150,13 +150,12 @@ nkeymap('<c-s>', ':w<CR>') -- save buffer
 nkeymap('<leader>sf', ':w<cr>') -- save buffer
 ikeymap('<c-s>', '<Esc>:w<CR>a') -- save buffer
 nkeymap('<leader>q', ':q<CR>') -- close current window
+nkeymap('<leader>Q', ':qall<CR>') -- close all
 nkeymap('<leader>x', ':wq<CR>') -- save and close window
-nkeymap('<leader>x', ':wq<cr>') -- save and quit
+nkeymap('<leader>X', ':wqall<CR>') -- save all and quit
 nkeymap('<leader>ss', ':exe "mksession! " . v:this_session<CR>') -- save session
 nkeymap('<leader>so', ':w<bar>source %<cr>') -- save & source file
 nkeymap('<leader>sa', ':wall<CR>') -- save all files
-nkeymap('<leader>X', ':wqall<CR>') -- save all and exit
-nkeymap('<leader>Q', ':qall<CR>') -- discard all and exit
 
 -- foldings
 nkeymap('<space><space>', 'za')
