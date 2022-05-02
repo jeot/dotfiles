@@ -17,16 +17,15 @@ local function xkeymap(key, map) -- Visual Block
 end
 
 if vim.fn.has('win32') == 1 then
-	--nkeymap('<F3>', '<cmd>-tabe ~/AppData/local/nvim/init.lua<CR> <bar> :tcd ~<CR>')
-	--nkeymap('<F4>', '<cmd>source ~/AppData/local/nvim/init.lua<CR>')
+	nkeymap('<F3>', '<cmd>-tabe ~/AppData/local/nvim/init.lua<CR> <bar> :tcd ~/.config/nvim<CR>')
+	nkeymap('<F4>', '<cmd>source ~/AppData/local/nvim/init.lua<CR>')
 elseif vim.fn.has('linux') == 1 then
-	nkeymap('<F3>', '<cmd>-tabe ~/.config/nvim/init.lua<CR> <bar> :tcd ~<CR>')
+	nkeymap('<F3>', '<cmd>-tabe ~/.config/nvim/init.lua<CR> <bar> :tcd ~/.config/nvim<CR>')
 	nkeymap('<F4>', '<cmd>source ~/.config/nvim/init.lua<CR>')
 
 else
 	error("invalid os")
 end
-
 
 nkeymap('<c-h>', '<c-w>h')
 nkeymap('<c-j>', '<c-w>j')
@@ -34,6 +33,10 @@ nkeymap('<c-k>', '<c-w>k')
 nkeymap('<c-l>', '<c-w>l')
 
 nkeymap('Y', 'y$') -- yank to end if line
+
+-- changing directories
+nkeymap('<leader>cdb', '<cmd>cd %:p:h<cr>')
+nkeymap('<leader>lcdb', '<cmd>lcd %:p:h<cr>')
 
 nkeymap('n', 'nzzzv') -- center find
 nkeymap('N', 'Nzzzv') -- center find
@@ -76,8 +79,8 @@ nkeymap('<leader>DD', '"ddd')
 nkeymap('<leader>dd', '"Ddd')
 vkeymap('<leader>D', '"dd')
 vkeymap('<leader>d', '"Dd')
-nkeymap('<leader><c-r>', '"hyiw:%s/<C-r>h//gc<left><left><left>') -- interactive replace
-vkeymap('<leader><c-r>', '"hy:%s/<C-r>h//gc<left><left><left>') -- interactive replace
+nkeymap('<leader>R', '"hyiw:%s/<C-r>h//gc<left><left><left>') -- interactive replace
+vkeymap('<leader>R', '"hy:%s/<C-r>h//gc<left><left><left>') -- interactive replace
 nkeymap('<leader><c-n>', '"hyiw:%s/<C-r>h//gn<cr>') -- count keyword
 vkeymap('<leader><c-n>', '"hy:%s/<C-r>h//gn<cr>') -- count keyword
 vkeymap("p", '"_dP') -- while pasting on top of visual selection, hold the yanked register
@@ -109,15 +112,17 @@ vkeymap("<", "<gv")
 vkeymap(">", ">gv")
 
 -- moveing lines/blocks
-nkeymap('<leader>kk', ':m .-2<CR>==')
-nkeymap('<leader>jj', ':m .+1<CR>==')
-ikeymap('<c-k>', '<Esc>:m .-2<CR>gi')
-ikeymap('<c-j>', '<Esc>:m .+1<CR>gi')
-vkeymap('<c-k>', ":m '<-2<CR>gv=gv")
-vkeymap('<c-j>', ":m '>+1<CR>gv=gv")
-xkeymap("J", ":m '>+1<CR>gv-gv")
-xkeymap("K", ":m '<-2<CR>gv-gv")
---
+
+-- nkeymap('<leader>kk', ':m .-2<CR>==')
+
+-- nkeymap('<leader>jj', ':m .+1<CR>==')
+-- ikeymap('<c-k>', '<Esc>:m .-2<CR>gi')
+-- ikeymap('<c-j>', '<Esc>:m .+1<CR>gi')
+-- vkeymap('<c-k>', ":m '<-2<CR>gv=gv")
+-- vkeymap('<c-j>', ":m '>+1<CR>gv=gv")
+-- xkeymap("J", ":m '>+1<CR>gv-gv")
+-- xkeymap("K", ":m '<-2<CR>gv-gv")
+
 -- moving lines ! surprisingly Alt works in nvim!
 nkeymap('<A-k>', ':m .-2<CR>==')
 nkeymap('<A-j>', ':m .+1<CR>==')
@@ -149,8 +154,9 @@ nkeymap('<F2>', ':Explore<CR>') -- open file explorer
 nkeymap('<c-s>', ':w<CR>') -- save buffer
 nkeymap('<leader>sf', ':w<cr>') -- save buffer
 ikeymap('<c-s>', '<Esc>:w<CR>a') -- save buffer
-nkeymap('<leader>q', ':q<CR>') -- close current window
+nkeymap('<leader>q', ':Bdelete<CR>') -- delete buffer, but don't close window (using vim-bbye plugin)
 nkeymap('<leader>Q', ':qall<CR>') -- close all
+nkeymap('<leader>wq', ':q<CR>') -- close window
 nkeymap('<leader>x', ':wq<CR>') -- save and close window
 nkeymap('<leader>X', ':wqall<CR>') -- save all and quit
 nkeymap('<leader>ss', ':exe "mksession! " . v:this_session<CR>') -- save session
@@ -160,3 +166,8 @@ nkeymap('<leader>sa', ':wall<CR>') -- save all files
 -- foldings
 nkeymap('<space><space>', 'za')
 nkeymap('zo', 'zO')
+
+-- adding space lines
+
+nkeymap('<leader>jj', ':put =nr2char(10)<CR>')
+nkeymap('<leader>kk', ':put!=nr2char(10)<CR>')

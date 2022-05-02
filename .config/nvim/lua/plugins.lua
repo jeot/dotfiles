@@ -1,10 +1,14 @@
 require('packer').startup(
 function()
+	-- colorscheme
+	-- use 'sainnhe/gruvbox-material'
+	use "lunarvim/darkplus.nvim"
+
 	use 'wbthomason/packer.nvim'
 	use 'cohama/lexima.vim'
 	use 'tpope/vim-surround'
+	use 'tpope/vim-unimpaired'
 	use 'tpope/vim-commentary'
-	use 'sainnhe/gruvbox-material'
 	use 'vim-airline/vim-airline'
 	use 'vim-airline/vim-airline-themes'
 	use 'christoomey/vim-tmux-navigator'
@@ -14,19 +18,15 @@ function()
 	config = function()
 		local opts = {}
 		if vim.fn.has('win32') == 1 then
-			opts = {
-				{
+			opts = { {
 					path = 'D:/SynologyDrive/Personal/shkVimWiki/',
 					path_html = 'D:/SynologyDrive/Personal/shkVimWikiHTM/'
-				}
-			}
+			} }
 		elseif vim.fn.has('linux') == 1 then
-			opts = {
-				{
+			opts = { {
 					path = '~/SynologyDrive/Personal/shkVimWiki/',
 					path_html = '~/SynologyDrive/Personal/shkVimWikiHTM/'
-				}
-			}
+			} }
 		else opts = {} end
 		vim.g.vimwiki_list = opts
 	end
@@ -90,11 +90,8 @@ function()
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
 	use 'tpope/vim-obsession'
-	use {
-		'kyazdani42/nvim-tree.lua',
-		requires = {
-			'kyazdani42/nvim-web-devicons', -- optional, for file icon
-		}
-	}
-	require'nvim-tree'.setup { }
+	use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons', } }
+	-- require'nvim-tree'.setup { }
+	use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
+	use 'moll/vim-bbye'
 end)

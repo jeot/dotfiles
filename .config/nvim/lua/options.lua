@@ -45,9 +45,9 @@ vim.opt.mouse = "a"
 vim.opt.list = true
 --vim.opt.listchars = "nbsp:×,tab:•\ ,trail:•,extends:»,precedes:"
 vim.opt.background = "dark"
-vim.opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,terminal"
+vim.opt.sessionoptions = "blank,buffers,folds,help,tabpages,winsize,terminal"
 vim.opt.cursorline = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.shortmess:append "c"
-vim.opt.showtabline = 2
+-- vim.opt.showtabline = 2
