@@ -3,14 +3,16 @@ function()
 	-- colorscheme
 	-- use 'sainnhe/gruvbox-material'
 	use "lunarvim/darkplus.nvim"
+	use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
+	require('lualine').setup { options = { theme = 'dracula' } }
 
 	use 'wbthomason/packer.nvim'
 	use 'cohama/lexima.vim'
 	use 'tpope/vim-surround'
 	use 'tpope/vim-unimpaired'
 	use 'tpope/vim-commentary'
-	use 'vim-airline/vim-airline'
-	use 'vim-airline/vim-airline-themes'
+	-- use 'vim-airline/vim-airline'
+	-- use 'vim-airline/vim-airline-themes'
 	use 'christoomey/vim-tmux-navigator'
 	vim.g.tmux_navigator_disable_when_zoomed = 1
 	use {

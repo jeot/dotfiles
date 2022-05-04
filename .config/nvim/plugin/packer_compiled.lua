@@ -90,6 +90,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\shk\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lexima.vim",
     url = "https://github.com/cohama/lexima.vim"
   },
+  ["lualine.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\shk\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lualine.nvim",
+    url = "https://github.com/nvim-lualine/lualine.nvim"
+  },
   ["nvim-lsp-installer"] = {
     loaded = true,
     path = "C:\\Users\\shk\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lsp-installer",
@@ -130,16 +135,6 @@ _G.packer_plugins = {
     path = "C:\\Users\\shk\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
-  ["vim-airline"] = {
-    loaded = true,
-    path = "C:\\Users\\shk\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-airline",
-    url = "https://github.com/vim-airline/vim-airline"
-  },
-  ["vim-airline-themes"] = {
-    loaded = true,
-    path = "C:\\Users\\shk\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-airline-themes",
-    url = "https://github.com/vim-airline/vim-airline-themes"
-  },
   ["vim-bbye"] = {
     loaded = true,
     path = "C:\\Users\\shk\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-bbye",
@@ -179,14 +174,14 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: alpha-nvim
-time([[Config for alpha-nvim]], true)
-try_loadstring("\27LJ\2\n¹\4\0\0\b\0\31\00176\0\0\0'\2\1\0B\0\2\0029\0\2\0006\2\0\0'\4\3\0B\2\2\0029\2\4\2B\0\2\0016\0\0\0'\2\3\0B\0\2\0029\1\5\0009\1\6\0014\2\6\0009\3\b\0'\5\t\0'\6\n\0'\a\v\0B\3\4\2>\3\1\0029\3\b\0'\5\f\0'\6\r\0'\a\14\0B\3\4\2>\3\2\0029\3\b\0'\5\15\0'\6\16\0'\a\17\0B\3\4\2>\3\3\0029\3\b\0'\5\18\0'\6\19\0'\a\20\0B\3\4\2>\3\4\0029\3\b\0'\5\21\0'\6\22\0'\a\23\0B\3\4\0?\3\0\0=\2\a\0016\1\24\0009\1\25\0019\1\26\1'\3\27\0'\4\28\0'\5\29\0005\6\30\0B\1\5\1K\0\1\0\1\0\1\fnoremap\2\15:Alpha<cr>\n<c-n>\6n\20nvim_set_keymap\bapi\bvim\f:qa<cr>\14quit nvim\6q\29:e ~/app_installs.md<cr>\28app installs quick note\aai$:e ~/.config/nvim/ginit.vim<cr>\14qt-config\avq\20:e ~/.vimrc<cr>\18.vimrc config\avv#:e ~/.config/nvim/init.lua<cr>\18neovim config\avn\vbutton\bval\19bottom_buttons\fsection\vconfig\26alpha.themes.startify\nsetup\nalpha\frequire\v€€À™\4\0", "config", "alpha-nvim")
-time([[Config for alpha-nvim]], false)
 -- Config for: vimwiki
 time([[Config for vimwiki]], true)
 try_loadstring("\27LJ\2\næ\2\0\0\4\0\t\1\0304\0\0\0006\1\0\0009\1\1\0019\1\2\1'\3\3\0B\1\2\2\t\1\0\0X\1\5€4\1\3\0005\2\4\0>\2\1\1\18\0\1\0X\1\r€6\1\0\0009\1\1\0019\1\2\1'\3\5\0B\1\2\2\t\1\0\0X\1\5€4\1\3\0005\2\6\0>\2\1\1\18\0\1\0X\1\1€4\0\0\0006\1\0\0009\1\a\1=\0\b\1K\0\1\0\17vimwiki_list\6g\1\0\2\tpath)~/SynologyDrive/Personal/shkVimWiki/\14path_html,~/SynologyDrive/Personal/shkVimWikiHTM/\nlinux\1\0\2\tpath*D:/SynologyDrive/Personal/shkVimWiki/\14path_html-D:/SynologyDrive/Personal/shkVimWikiHTM/\nwin32\bhas\afn\bvim\2\0", "config", "vimwiki")
 time([[Config for vimwiki]], false)
+-- Config for: alpha-nvim
+time([[Config for alpha-nvim]], true)
+try_loadstring("\27LJ\2\n¹\4\0\0\b\0\31\00176\0\0\0'\2\1\0B\0\2\0029\0\2\0006\2\0\0'\4\3\0B\2\2\0029\2\4\2B\0\2\0016\0\0\0'\2\3\0B\0\2\0029\1\5\0009\1\6\0014\2\6\0009\3\b\0'\5\t\0'\6\n\0'\a\v\0B\3\4\2>\3\1\0029\3\b\0'\5\f\0'\6\r\0'\a\14\0B\3\4\2>\3\2\0029\3\b\0'\5\15\0'\6\16\0'\a\17\0B\3\4\2>\3\3\0029\3\b\0'\5\18\0'\6\19\0'\a\20\0B\3\4\2>\3\4\0029\3\b\0'\5\21\0'\6\22\0'\a\23\0B\3\4\0?\3\0\0=\2\a\0016\1\24\0009\1\25\0019\1\26\1'\3\27\0'\4\28\0'\5\29\0005\6\30\0B\1\5\1K\0\1\0\1\0\1\fnoremap\2\15:Alpha<cr>\n<c-n>\6n\20nvim_set_keymap\bapi\bvim\f:qa<cr>\14quit nvim\6q\29:e ~/app_installs.md<cr>\28app installs quick note\aai$:e ~/.config/nvim/ginit.vim<cr>\14qt-config\avq\20:e ~/.vimrc<cr>\18.vimrc config\avv#:e ~/.config/nvim/init.lua<cr>\18neovim config\avn\vbutton\bval\19bottom_buttons\fsection\vconfig\26alpha.themes.startify\nsetup\nalpha\frequire\v€€À™\4\0", "config", "alpha-nvim")
+time([[Config for alpha-nvim]], false)
 if should_profile then save_profiles() end
 
 end)
