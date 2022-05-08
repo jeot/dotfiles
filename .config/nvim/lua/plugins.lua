@@ -15,22 +15,29 @@ function()
 	-- use 'vim-airline/vim-airline-themes'
 	use 'christoomey/vim-tmux-navigator'
 	vim.g.tmux_navigator_disable_when_zoomed = 1
+
 	use {
 	'vimwiki/vimwiki',
 	config = function()
 		local opts = {}
 		if vim.fn.has('win32') == 1 then
 			opts = { {
-					path = 'D:/SynologyDrive/Personal/shkVimWiki/',
-					path_html = 'D:/SynologyDrive/Personal/shkVimWikiHTM/'
+				path = 'D:/SynologyDrive/Personal/shkVimWiki/',
+				path_html = 'D:/SynologyDrive/Personal/shkVimWikiHTM/',
+				-- "C:\Users\shk\AppData\Local\nvim-data\site\pack\packer\start\vimwiki\autoload\vimwiki"
+				template_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/vimwiki/autoload/vimwiki/",
+				-- syntax = "markdown", ext = ".md"
 			} }
 		elseif vim.fn.has('linux') == 1 then
 			opts = { {
-					path = '~/SynologyDrive/Personal/shkVimWiki/',
-					path_html = '~/SynologyDrive/Personal/shkVimWikiHTM/'
+				path = '~/SynologyDrive/Personal/shkVimWiki/',
+				path_html = '~/SynologyDrive/Personal/shkVimWikiHTM/',
+				template_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/vimwiki/autoload/vimwiki/",
+				-- syntax = "markdown", ext = ".md"
 			} }
 		else opts = {} end
 		vim.g.vimwiki_list = opts
+		vim.g["vimwiki_global_ext"] = 0
 	end
 	}
 	use {
@@ -56,7 +63,7 @@ function()
 		run = ':TSUpdate'
 	}
 	require'nvim-treesitter.configs'.setup {
-		ensure_installed = { "bash", "c", "cpp", "c_sharp", "lua", "css", "hjson", "help", "javascript", "java", "json", "latex", "markdown", "php", "python", "ruby", "tsx", "typescript", "vim" },
+		ensure_installed = { "bash", "c", "cpp", "c_sharp", "lua", "css", "hjson", "help", "javascript", "java", "json", "latex", "markdown", "php", "python", "ruby", "tsx", "typescript", "vim", "markdown" },
 		-- ensure_installed = "all",
 		highlight = {
 			enable = true,

@@ -17,6 +17,7 @@ vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.number = true
 vim.opt.wrap = true
+vim.opt.linebreak = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false

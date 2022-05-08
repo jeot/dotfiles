@@ -1,6 +1,7 @@
 -- set leader key
 vim.g.mapleader = ' '
 
+
 local keymap = vim.api.nvim_set_keymap
 local opts = { noremap=true, silent=true }
 local function nkeymap(key, map) -- Normal
@@ -157,7 +158,8 @@ ikeymap('<c-s>', '<Esc>:w<CR>a') -- save buffer
 nkeymap('<leader>q', ':Bdelete<CR>') -- delete buffer, but don't close window (using vim-bbye plugin)
 nkeymap('<leader>Q', ':qall<CR>') -- close all
 nkeymap('<leader>wq', ':q<CR>') -- close window
-nkeymap('<leader>x', ':wq<CR>') -- save and close window
+nkeymap('<leader>wc', ':q<CR>') -- close window
+nkeymap('<leader>x', ':w <bar> Bdelete<CR>') -- save and close window
 nkeymap('<leader>X', ':wqall<CR>') -- save all and quit
 nkeymap('<leader>ss', ':exe "mksession! " . v:this_session<CR>') -- save session
 nkeymap('<leader>so', ':w<bar>source %<cr>') -- save & source file
