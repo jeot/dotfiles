@@ -148,7 +148,6 @@ nkeymap('<leader>TT', ':tabnew<cr>')
 -- for make toolchain
 nkeymap('<leader>ma', ':wa<cr> <bar> :make<cr>') -- make
 nkeymap('<leader>mu', ':wa<cr> <bar> :make ') -- make something
-nkeymap('<leader>;', ':<c-f>') -- show command history
 
 -- file/buffer stuff
 nkeymap('<F2>', ':Explore<CR>') -- open file explorer
@@ -164,6 +163,7 @@ nkeymap('<leader>X', ':wqall<CR>') -- save all and quit
 nkeymap('<leader>ss', ':exe "mksession! " . v:this_session<CR>') -- save session
 nkeymap('<leader>so', ':w<bar>source %<cr>') -- save & source file
 nkeymap('<leader>sa', ':wall<CR>') -- save all files
+nkeymap('<leader>;', ':<c-f>k') -- show command history
 
 -- foldings
 nkeymap('<space><space>', 'za')

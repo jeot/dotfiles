@@ -76,10 +76,20 @@ function()
 	vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 	use 'neovim/nvim-lspconfig'
 	use 'williamboman/nvim-lsp-installer'
-	-- require("nvim-lsp-installer").setup({
-	-- 	ensure_installed = { "clangd", "cssls", "html", "jsonls", "sumneko_lua", "pyright" } -- ensure these servers are always installed
+	-- run this command after: LspInstall clangd cssls html jsonls sumneko_lua pyright
+	-- !! the following setup don't work and I don't know why!
+	-- require'nvim-lsp-installer'.setup({
+	-- 	-- ensure_installed = { "clangd", "cssls", "html", "jsonls", "sumneko_lua", "pyright" }, -- ensure these servers are always installed
+	-- 	automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+	-- 	ui = {
+	-- 		icons = {
+	-- 			server_installed = "✓",
+	-- 			server_pending = "➜",
+	-- 			server_uninstalled = "✗"
+	-- 		}
+	-- 	}
 	-- })
-	require("nvim-lsp-installer").on_server_ready(function(server)
+	require'nvim-lsp-installer'.on_server_ready(function(server)
 		local opts = {}
 		if server.name == "sumneko_lua" then
 			opts = {
