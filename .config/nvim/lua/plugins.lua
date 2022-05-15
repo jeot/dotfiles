@@ -22,8 +22,8 @@ function()
 		local opts = {}
 		if vim.fn.has('win32') == 1 then
 			opts = { {
-				path = 'D:/SynologyDrive/Personal/shkVimWiki/',
-				path_html = 'D:/SynologyDrive/Personal/shkVimWikiHTM/',
+				path = '~/SynologyDrive/Personal/shkVimWiki/',
+				path_html = '~/SynologyDrive/Personal/shkVimWikiHTM/',
 				-- "C:\Users\shk\AppData\Local\nvim-data\site\pack\packer\start\vimwiki\autoload\vimwiki"
 				template_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/vimwiki/autoload/vimwiki/",
 				-- syntax = "markdown", ext = ".md"

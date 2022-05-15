@@ -1,5 +1,16 @@
 [core]
 	pager = less -x1,5
+	autocrlf = true
 [user]
 	email = sh.keshani@gmail.com
 	name = Shamim Keshani
+[safe]
+	directory = C:/Users/shk/AppData/Local/nvim-data/site/pack/packer/start/vim-unimpaired
+	directory = C:/Users/shk/AppData/Local/nvim-data/site/pack/packer/start/vim-commentary
+	directory = C:/Users/shk/AppData/Local/nvim-data/site/pack/packer/start/vim-tmux-navigator
+	directory = C:/Users/shk/AppData/Local/nvim-data/site/pack/packer/start/vimwiki
+	directory = C:/Users/shk/AppData/Local/nvim-data/site/pack/packer/start/alpha-nvim
+	directory = C:/Users/shk/AppData/Local/nvim-data/site/pack/packer/start/packer.nvim
+	directory = C:/Users/shk/AppData/Local/nvim-data/site/pack/packer/start/lexima.vim
+	directory = C:/Users/shk/AppData/Local/nvim-data/site/pack/packer/start/vim-surround
+	directory = C:/Users/shk/AppData/Local/nvim-data/site/pack/packer/start/nvim-treesitter

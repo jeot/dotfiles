@@ -103,6 +103,7 @@ nkeymap("<C-Right>", ":vertical resize +2<CR>")
 
 nkeymap('<leader>et', ':exe "!tmux send -t .+ \'echo " . vim.fn.getline(".") . "\' Enter"<CR>')
 nkeymap('<leader>ee', ':exe "!tmux send -t .+ \'" . vim.fn.getline(".") . "\' Enter"<CR>')
+nkeymap('<leader>E', ':exe "!" . getline(".")<CR>')
 
 -- record and repeat keys on multiple lines: qq q
 nkeymap('<leader><CR>', '@q')
