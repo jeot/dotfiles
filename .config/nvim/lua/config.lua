@@ -9,3 +9,13 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() !~ '\v(c|r.?|!|t
 autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 ]]
 
+-- set gui font
+if vim.fn.has('gui') then
+	vim.cmd [[ set guifont=Mononoki\ Nerd\ Font\ Mono:h11 ]]
+end
+
+vim.cmd [[
+if exists('g:gonvim_running')
+	nnoremap <F11> :GonvimFullscreen<cr>
+endif
+]]

@@ -3,7 +3,7 @@ vim.opt.foldlevelstart=-1
 vim.opt.foldnestmax=2
 vim.opt.exrc = true
 vim.opt.secure = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.hlsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -52,3 +52,4 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.shortmess:append "c"
 -- vim.opt.showtabline = 2
+-- vim.completeopt="menu,menuone,noselect"

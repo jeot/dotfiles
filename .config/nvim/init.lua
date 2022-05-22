@@ -2,15 +2,15 @@ require('options')
 require('keymaps')
 require('plugins')
 require('config')
-require('plugin_setup.nvimtree')
-require('plugin_setup.bufferline')
-require('plugin_setup.colorscheme')
+require('user/nvimtree')
+require('user/bufferline')
+require('user/colorscheme')
+require('user/cmp')
 
 
 -- this is a cool function
 local function greeting()
 	print "hello world"
 end
-
 
 -- greeting()

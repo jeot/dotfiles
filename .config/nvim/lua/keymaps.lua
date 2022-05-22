@@ -28,10 +28,10 @@ else
 	error("invalid os")
 end
 
-nkeymap('<c-h>', '<c-w>h')
-nkeymap('<c-j>', '<c-w>j')
-nkeymap('<c-k>', '<c-w>k')
-nkeymap('<c-l>', '<c-w>l')
+-- nkeymap('<c-h>', '<c-w>h')
+-- nkeymap('<c-j>', '<c-w>j')
+-- nkeymap('<c-k>', '<c-w>k')
+-- nkeymap('<c-l>', '<c-w>l')
 
 nkeymap('Y', 'y$') -- yank to end if line
 
@@ -87,7 +87,8 @@ vkeymap('<leader><c-n>', '"hy:%s/<C-r>h//gn<cr>') -- count keyword
 vkeymap("p", '"_dP') -- while pasting on top of visual selection, hold the yanked register
 
 -- telescope keymaps using Lua functions
-nkeymap('<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<cr>')
+-- nkeymap('<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<cr>')
+nkeymap('<leader>ff', '<cmd>lua require("telescope.builtin").find_files({no_ignore = true})<cr>')
 nkeymap('<leader>fg', '<cmd>lua require("telescope.builtin").live_grep()<cr>')
 nkeymap('<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<cr>')
 nkeymap('<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<cr>')
@@ -150,7 +151,7 @@ nkeymap('<leader>TT', ':tabnew<cr>')
 nkeymap('<leader>ma', ':wa<cr> <bar> :make<cr>') -- make
 nkeymap('<leader>mu', ':wa<cr> <bar> :make ') -- make something
 
--- file/buffer stuff
+-- file/buffer/window stuff
 nkeymap('<F2>', ':Explore<CR>') -- open file explorer
 nkeymap('<c-s>', ':w<CR>') -- save buffer
 nkeymap('<leader>sf', ':w<cr>') -- save buffer
@@ -159,6 +160,11 @@ nkeymap('<leader>q', ':Bdelete<CR>') -- delete buffer, but don't close window (u
 nkeymap('<leader>Q', ':qall<CR>') -- close all
 nkeymap('<leader>wq', ':q<CR>') -- close window
 nkeymap('<leader>wc', ':q<CR>') -- close window
+nkeymap('<leader>wH', '<c-w>H') -- windows layout side-by-side
+nkeymap('<leader>wr', '<c-w>r') -- rotate windows
+nkeymap('<leader>ws', '<c-w>s') -- split windows
+nkeymap('<leader>wv', '<c-w>v') -- split vertical windows
+
 nkeymap('<leader>x', ':w <bar> Bdelete<CR>') -- save and close window
 nkeymap('<leader>X', ':wqall<CR>') -- save all and quit
 nkeymap('<leader>ss', ':exe "mksession! " . v:this_session<CR>') -- save session
@@ -169,8 +175,3 @@ nkeymap('<leader>;', ':<c-f>k') -- show command history
 -- foldings
 nkeymap('<space><space>', 'za')
 nkeymap('zo', 'zO')
-
--- adding space lines
-
-nkeymap('<leader>jj', ':put =nr2char(10)<CR>')
-nkeymap('<leader>kk', ':put!=nr2char(10)<CR>')

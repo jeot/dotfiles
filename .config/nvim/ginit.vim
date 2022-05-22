@@ -1,10 +1,14 @@
 " Enable Mouse
 set mouse=a
 
+" if exists('g:gonvim_running')
+" 	nnoremap <silent><F11> :GonvimFullscreen<cr>
+" endif
+
 " Set Editor Font
 if exists(':GuiFont')
     " Use GuiFont! to ignore font errors
-    GuiFont! Mononoki\ Nerd\ Font:h12
+    GuiFont! Mononoki\ Nerd\ Font\ Mono:h12
 endif
 
 " Disable GUI Tabline
