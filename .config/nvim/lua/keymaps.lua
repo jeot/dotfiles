@@ -51,7 +51,7 @@ keymap('n', '<Leader>tl', '<Plug>VimwikiToggleListItem', { silent = true })
 keymap('v', '<Leader>tl', '<Plug>VimwikiToggleListItem', { silent = true })
 nkeymap('<leader>=', '=i{') -- auto indent inside {} block
 
-nkeymap('gd', ':lua vim.lsp.buf.definition()<cr>')
+nkeymap('gd', ':lua vim.lsp.buf.definition()<cr>zzzv')
 nkeymap('gD', ':lua vim.lsp.buf.declaration()<cr>')
 nkeymap('gi', ':lua vim.lsp.buf.implementation()<cr>')
 nkeymap('gw', ':lua vim.lsp.buf.document_symbol()<cr>')
@@ -59,8 +59,8 @@ nkeymap('gw', ':lua vim.lsp.buf.workspace_symbol()<cr>')
 nkeymap('gr', ':lua vim.lsp.buf.references()<cr>')
 nkeymap('gt', ':lua vim.lsp.buf.type_definition()<cr>')
 nkeymap('K', ':lua vim.lsp.buf.hover()<cr>')
-nkeymap('gn', ':lua vim.diagnostic.goto_next()<cr>')
-nkeymap('gp', ':lua vim.diagnostic.goto_prev()<cr>')
+nkeymap('gn', ':lua vim.diagnostic.goto_next()<cr>zzzv')
+nkeymap('gp', ':lua vim.diagnostic.goto_prev()<cr>zzzv')
 --nkeymap('<c-k>', ':lua vim.lsp.buf.signature_help()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
@@ -167,6 +167,7 @@ nkeymap('<leader>wH', '<c-w>H') -- windows layout side-by-side
 nkeymap('<leader>wr', '<c-w>r') -- rotate windows
 nkeymap('<leader>ws', '<c-w>s') -- split windows
 nkeymap('<leader>wv', '<c-w>v') -- split vertical windows
+nkeymap('<leader>wo', '<c-w>o') -- make only window
 nkeymap('<leader>wh', '<c-w>h')
 nkeymap('<leader>wj', '<c-w>j')
 nkeymap('<leader>wk', '<c-w>k')
