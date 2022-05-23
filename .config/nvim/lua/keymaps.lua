@@ -36,8 +36,8 @@ end
 nkeymap('Y', 'y$') -- yank to end if line
 
 -- changing directories
-nkeymap('<leader>cdb', '<cmd>cd %:p:h<cr>')
-nkeymap('<leader>lcdb', '<cmd>lcd %:p:h<cr>')
+nkeymap('<leader>cdb', '<cmd>cd %:p:h<cr>') -- change global directory to current buffer
+nkeymap('<leader>lcdb', '<cmd>lcd %:p:h<cr>') -- change local window directory to current buffer
 
 nkeymap('n', 'nzzzv') -- center find
 nkeymap('N', 'Nzzzv') -- center find
@@ -59,9 +59,12 @@ nkeymap('gw', ':lua vim.lsp.buf.workspace_symbol()<cr>')
 nkeymap('gr', ':lua vim.lsp.buf.references()<cr>')
 nkeymap('gt', ':lua vim.lsp.buf.type_definition()<cr>')
 nkeymap('K', ':lua vim.lsp.buf.hover()<cr>')
+nkeymap('gn', ':lua vim.diagnostic.goto_next()<cr>')
+nkeymap('gp', ':lua vim.diagnostic.goto_prev()<cr>')
 --nkeymap('<c-k>', ':lua vim.lsp.buf.signature_help()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
+
 
 -- copy/paste stuff
 ikeymap('<c-p>', '<ESC>"+pa') -- system clipboard
@@ -164,6 +167,11 @@ nkeymap('<leader>wH', '<c-w>H') -- windows layout side-by-side
 nkeymap('<leader>wr', '<c-w>r') -- rotate windows
 nkeymap('<leader>ws', '<c-w>s') -- split windows
 nkeymap('<leader>wv', '<c-w>v') -- split vertical windows
+nkeymap('<leader>wh', '<c-w>h')
+nkeymap('<leader>wj', '<c-w>j')
+nkeymap('<leader>wk', '<c-w>k')
+nkeymap('<leader>wl', '<c-w>l')
+nkeymap('<leader>w=', '<c-w>=')
 
 nkeymap('<leader>x', ':w <bar> Bdelete<CR>') -- save and close window
 nkeymap('<leader>X', ':wqall<CR>') -- save all and quit
