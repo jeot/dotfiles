@@ -27,6 +27,11 @@ git config --global core.pager "less -x1,5"
 git config --global user.email "sh.keshani@gmail.com"
 git config --global user.name "Shamim Keshani"
 
+# lazygit
+sudo add-apt-repository ppa:lazygit-team/release
+sudo apt-get update
+sudo apt-get install lazygit
+
 # xclip (for copy to clipboard)
 sudo apt-get install xclip -y
 
