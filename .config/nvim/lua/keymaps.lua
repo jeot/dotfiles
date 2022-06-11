@@ -59,8 +59,8 @@ nkeymap('H', ':bprevious<CR>')
 nkeymap('<leader>cdb', '<cmd>cd %:p:h<cr>') -- change global directory to current buffer
 nkeymap('<leader>lcdb', '<cmd>lcd %:p:h<cr>') -- change local window directory to current buffer
 
-nkeymap('n', 'nzzzv') -- center find
-nkeymap('N', 'Nzzzv')
+nkeymap('n', 'nzvzz') -- center find
+nkeymap('N', 'Nzvzz')
 
 ikeymap(',', ',<c-g>u') -- insert additional undo points
 ikeymap('.', '.<c-g>u')
@@ -84,8 +84,8 @@ nkeymap('gw', ':lua vim.lsp.buf.workspace_symbol()<cr>')
 nkeymap('gr', ':lua vim.lsp.buf.references()<cr>')
 nkeymap('gy', ':lua vim.lsp.buf.type_definition()<cr>')
 nkeymap('gk', ':lua vim.lsp.buf.hover()<cr>')
-nkeymap('gn', ':lua vim.diagnostic.goto_next()<cr>zzzv')
-nkeymap('gp', ':lua vim.diagnostic.goto_prev()<cr>zzzv')
+nkeymap('gn', ':lua vim.diagnostic.goto_next()<cr>zvzz')
+nkeymap('gp', ':lua vim.diagnostic.goto_prev()<cr>zvzz')
 --nkeymap('<c-k>', ':lua vim.lsp.buf.signature_help()<cr>')
 nkeymap('<leader>af', ':lua vim.lsp.buf.code_action()<cr>')
 nkeymap('<leader>rn', ':lua vim.lsp.buf.rename()<cr>')
@@ -162,11 +162,13 @@ ikeymap('<c-s>', '<Esc>:w<CR>a') -- save buffer
 nkeymap('<leader>q', ':Bdelete<CR>') -- delete buffer, but don't close window (using vim-bbye plugin)
 nkeymap('<leader>FQ', ':Bdelete!<CR>') -- delete buffer, but don't close window (using vim-bbye plugin)
 nkeymap('<leader>Q', ':qall<CR>') -- close all
-nkeymap('<leader>x', ':w <bar> Bdelete<CR>') -- save and close window
+nkeymap('<leader>x', ':w <bar> Bdelete<CR>') -- save and close buffer
 nkeymap('<leader>X', ':wqall<CR>') -- save all and quit
 nkeymap('<leader>ss', ':exe "mksession! " . v:this_session<CR>') -- save session
 nkeymap('<leader>so', ':w <bar> source %<cr>') -- save & source file
 nkeymap('<leader>sa', ':wall<CR>') -- save all files
+nkeymap('ZQ', ':bd!<cr>') -- close buffer without saving, don't close window
+nkeymap('ZZ', ':w <bar> Bdelete<CR>') -- save buffer and close, don't close window
 
 -- window stuff
 nkeymap('<leader>wq', ':q<CR>') -- close window
