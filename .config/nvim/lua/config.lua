@@ -11,7 +11,7 @@ autocmd FileChangedShellPost * echohl WarningMsg | echo "File changed on disk. B
 
 -- set gui font
 if vim.fn.has('gui') then
-	vim.cmd [[ set guifont=Mononoki\ Nerd\ Font\ Mono:h11 ]]
+	vim.cmd [[ set guifont=Mononoki\ Nerd\ Font\ Mono:h12 ]]
 end
 
 vim.cmd [[

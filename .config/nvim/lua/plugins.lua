@@ -17,10 +17,15 @@ return packer.startup(function()
 	use "nvim-lua/popup.nvim"
 
 	-- colorscheme
+	-- use 'vim-airline/vim-airline'
+	-- use 'vim-airline/vim-airline-themes'
 	-- use 'sainnhe/gruvbox-material'
 	use "lunarvim/darkplus.nvim"
-	use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
-	require('lualine').setup { options = { theme = 'dracula' } }
+	-- use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
+	-- require('lualine').setup { options = { theme = 'dracula' } }
+	-- use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
+	use 'itchyny/lightline.vim'
+	use 'mengelbrecht/lightline-bufferline'
 
 	-- cmp plugins
 	use { "hrsh7th/nvim-cmp", branch = 'main'} -- The completion plugin
@@ -32,17 +37,46 @@ return packer.startup(function()
 	use "L3MON4D3/LuaSnip"
 	use "saadparwaiz1/cmp_luasnip"
 	use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
-
 	-- For vsnip users.
 	-- use 'hrsh7th/cmp-vsnip'
 	-- use 'hrsh7th/vim-vsnip'-- snippets
+
+	-- lsp
+	use 'neovim/nvim-lspconfig'
+	use 'williamboman/nvim-lsp-installer'
+	-- run this command after: LspInstall clangd cssls html jsonls sumneko_lua pyright
+	-- !! the following setup don't work and I don't know why!
+	-- require'nvim-lsp-installer'.setup({
+	-- 	-- ensure_installed = { "clangd", "cssls", "html", "jsonls", "sumneko_lua", "pyright" }, -- ensure these servers are always installed
+	-- 	automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
+	-- 	ui = {
+	-- 		icons = {
+	-- 			server_installed = "✓",
+	-- 			server_pending = "➜",
+	-- 			server_uninstalled = "✗"
+	-- 		}
+	-- 	}
+	-- })
+	require'nvim-lsp-installer'.on_server_ready(function(server)
+		local opts = {}
+		if server.name == "sumneko_lua" then
+			opts = {
+				settings = {
+					Lua = {
+						diagnostics = {
+							globals = { 'vim', 'use' }
+						},
+					}
+				}
+			}
+		end
+		server:setup(opts)
+	end)
 
 	use 'cohama/lexima.vim'
 	use 'tpope/vim-surround'
 	use 'tpope/vim-unimpaired'
 	use 'tpope/vim-commentary'
-	-- use 'vim-airline/vim-airline'
-	-- use 'vim-airline/vim-airline-themes'
 	use 'christoomey/vim-tmux-navigator'
 	vim.g.tmux_navigator_disable_when_zoomed = 1
 
@@ -80,6 +114,9 @@ return packer.startup(function()
 			startify.button("vn", "neovim config", ":e ~/.config/nvim/init.lua<cr>"),
 			startify.button("vv", ".vimrc config", ":e ~/.vimrc<cr>"),
 			startify.button("vq", "qt-config", ":e ~/.config/nvim/ginit.vim<cr>"),
+			startify.button("vg", "goneovim config", ":e ~/.goneovim/settings.toml<cr>"),
+			startify.button("va", "AutoHotKey Script", ":e C:/Users/shk/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/myScript.ahk<cr>"),
+			startify.button("vw", "wezterm config", ":e C:/Users/shk/.config/wezterm/wezterm.lua <cr>"),
 			startify.button("ai", "app installs quick note", ":e ~/app_installs.md<cr>"),
 			startify.button("q", "quit nvim", ":qa<cr>")
 		}
@@ -104,44 +141,12 @@ return packer.startup(function()
 	}
 	vim.opt.foldmethod = 'expr'
 	vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-	use 'neovim/nvim-lspconfig'
-	use 'williamboman/nvim-lsp-installer'
-	-- run this command after: LspInstall clangd cssls html jsonls sumneko_lua pyright
-	-- !! the following setup don't work and I don't know why!
-	-- require'nvim-lsp-installer'.setup({
-	-- 	-- ensure_installed = { "clangd", "cssls", "html", "jsonls", "sumneko_lua", "pyright" }, -- ensure these servers are always installed
-	-- 	automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-	-- 	ui = {
-	-- 		icons = {
-	-- 			server_installed = "✓",
-	-- 			server_pending = "➜",
-	-- 			server_uninstalled = "✗"
-	-- 		}
-	-- 	}
-	-- })
-	require'nvim-lsp-installer'.on_server_ready(function(server)
-		local opts = {}
-		if server.name == "sumneko_lua" then
-			opts = {
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { 'vim', 'use' }
-						},
-					}
-				}
-			}
-		end
-		server:setup(opts)
-	end)
 	use {
 		'nvim-telescope/telescope.nvim',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
 	use 'tpope/vim-obsession'
 	use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons', } }
-	-- require'nvim-tree'.setup { }
-	use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
 	use 'moll/vim-bbye'
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

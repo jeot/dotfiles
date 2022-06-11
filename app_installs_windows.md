@@ -3,6 +3,11 @@
 ### install choco (powershell admin)
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
+### install scoop
+# Optional: Needed to run a remote script the first time
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser 
+irm get.scoop.sh | iex
+
 ### install git (powershell admin)
 choco install git -y
 
@@ -22,6 +27,9 @@ g++ --version
 
 ### create a PowerShell profile (powershell admin)
 Set-ExecutionPolicy Unrestricted
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
+# check to have Unrestricted for LocalMachine and CurrentUser:
+Get-ExecutionPolicy -List
 # create file: 
 "C:\Users\shk\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
 # add content to this file:
@@ -82,5 +90,13 @@ $Env:PATH += ";C:\Users\shk\.platformio\penv\Scripts"
 
 ### install windows terminal (use app store and search for it)
 
+### install lazygit
+# Add the extras bucket
+scoop bucket add extras
+
+# Install lazygit
+scoop install lazygit
 
 
+# Install MSYS2 64Bit
+https://www.msys2.org/
