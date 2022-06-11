@@ -26,7 +26,7 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 4
 vim.opt.sidescrolloff = 4
-vim.opt.showmode = true
+vim.opt.showmode = false
 vim.opt.showcmd = true
 vim.opt.signcolumn = "yes" --"auto"
 vim.opt.cmdheight = 1
@@ -51,5 +51,6 @@ vim.opt.cursorline = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.shortmess:append "c"
--- vim.opt.showtabline = 2
+vim.opt.showtabline = 2
 -- vim.completeopt="menu,menuone,noselect"
+vim.opt.clipboard = "unnamedplus"
