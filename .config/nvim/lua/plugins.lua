@@ -116,6 +116,7 @@ return packer.startup(function()
 			startify.button("vq", "qt-config", ":e ~/.config/nvim/ginit.vim<cr>"),
 			startify.button("vg", "goneovim config", ":e ~/.goneovim/settings.toml<cr>"),
 			startify.button("va", "AutoHotKey Script", ":e C:/Users/shk/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/myScript.ahk<cr>"),
+			startify.button("vA", "Alacritty config", ":e C:/Users/shk/AppData/Roaming/alacritty/alacritty.yml<cr>"),
 			startify.button("vw", "wezterm config", ":e C:/Users/shk/.config/wezterm/wezterm.lua <cr>"),
 			startify.button("ai", "app installs quick note", ":e ~/app_installs.md<cr>"),
 			startify.button("q", "quit nvim", ":qa<cr>")
