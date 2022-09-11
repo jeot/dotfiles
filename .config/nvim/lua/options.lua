@@ -37,14 +37,16 @@ vim.opt.encoding = "utf-8"
 vim.opt.backspace = { "indent", "eol", "start" }
 vim.opt.history = 200
 vim.opt.ruler = true
-vim.opt.laststatus = 2
+vim.opt.laststatus = 3
+vim.opt.lazyredraw = false
 --vim.opt.colorcolumn = { 80 }
 vim.opt.wildmenu = true
 vim.opt.paste = false
 vim.opt.autoread = true
 vim.opt.mouse = "a"
 vim.opt.list = true
---vim.opt.listchars = "nbsp:×,tab:•\ ,trail:•,extends:»,precedes:"
+vim.opt.listchars = { tab = '• ', trail='•', nbsp='+', extends='»' }
+vim.opt.listchars = { tab = '  ', trail='•', nbsp='+', extends='»' }
 vim.opt.background = "dark"
 vim.opt.sessionoptions = "blank,buffers,folds,help,tabpages,winsize,terminal,sesdir"
 vim.opt.cursorline = true
@@ -53,4 +55,4 @@ vim.opt.splitright = true
 vim.opt.shortmess:append "c"
 vim.opt.showtabline = 2
 -- vim.completeopt="menu,menuone,noselect"
-vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamedplus"

@@ -13,19 +13,24 @@ if not status_ok then
 end
 
 return packer.startup(function()
-	use "wbthomason/packer.nvim"
-	use "nvim-lua/popup.nvim"
+	-- use "tweekmonster/startuptime.vim"
+
+	use 'wbthomason/packer.nvim'
+	use 'nvim-lua/popup.nvim'
 
 	-- colorscheme
 	-- use 'vim-airline/vim-airline'
 	-- use 'vim-airline/vim-airline-themes'
 	-- use 'sainnhe/gruvbox-material'
-	use "lunarvim/darkplus.nvim"
+	-- use "lunarvim/darkplus.nvim"
+	use { 'bkircher/darkplus.nvim' , branch = 'listchars-handling'}
+	use 'nathanaelkane/vim-indent-guides'
 	-- use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
 	-- require('lualine').setup { options = { theme = 'dracula' } }
 	-- use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
 	use 'itchyny/lightline.vim'
 	use 'mengelbrecht/lightline-bufferline'
+	use 'xiyaowong/nvim-transparent'
 
 	-- cmp plugins
 	use { "hrsh7th/nvim-cmp", branch = 'main'} -- The completion plugin
@@ -43,7 +48,10 @@ return packer.startup(function()
 
 	-- lsp
 	use 'neovim/nvim-lspconfig'
-	use 'williamboman/nvim-lsp-installer'
+	use 'williamboman/mason.nvim'
+	use 'williamboman/mason-lspconfig.nvim'
+	-- use 'williamboman/nvim-lsp-installer'
+    -- require("nvim-lsp-installer").setup {}
 	-- run this command after: LspInstall clangd cssls html jsonls sumneko_lua pyright
 	-- !! the following setup don't work and I don't know why!
 	-- require'nvim-lsp-installer'.setup({
@@ -57,21 +65,21 @@ return packer.startup(function()
 	-- 		}
 	-- 	}
 	-- })
-	require'nvim-lsp-installer'.on_server_ready(function(server)
-		local opts = {}
-		if server.name == "sumneko_lua" then
-			opts = {
-				settings = {
-					Lua = {
-						diagnostics = {
-							globals = { 'vim', 'use' }
-						},
-					}
-				}
-			}
-		end
-		server:setup(opts)
-	end)
+	-- require'nvim-lsp-installer'.on_server_ready(function(server)
+	-- 	local opts = {}
+	-- 	if server.name == "sumneko_lua" then
+	-- 		opts = {
+	-- 			settings = {
+	-- 				Lua = {
+	-- 					diagnostics = {
+	-- 						globals = { 'vim', 'use' }
+	-- 					},
+	-- 				}
+	-- 			}
+	-- 		}
+	-- 	end
+	-- 	server:setup(opts)
+	-- end)
 
 	use 'cohama/lexima.vim'
 	use 'tpope/vim-surround'
@@ -80,59 +88,66 @@ return packer.startup(function()
 	use 'christoomey/vim-tmux-navigator'
 	vim.g.tmux_navigator_disable_when_zoomed = 1
 
+	-- wiki
 	use {
 		'vimwiki/vimwiki',
 		config = function()
 			local opts = {}
 			if vim.fn.has('win32') == 1 then
 				opts = { {
-					path = '~/SynologyDrive/Personal/shkVimWiki/',
-					path_html = '~/SynologyDrive/Personal/shkVimWikiHTM/',
-					-- "C:\Users\shk\AppData\Local\nvim-data\site\pack\packer\start\vimwiki\autoload\vimwiki"
+					path = '~/SynologyDrive/Personal/Awesome/',
+					path_html = '~/SynologyDrive/Personal/AwesomeHTML/',
 					template_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/vimwiki/autoload/vimwiki/",
-					-- syntax = "markdown", ext = ".md"
+					syntax = "markdown", ext = ".md"
 				} }
 			elseif vim.fn.has('linux') == 1 then
 				opts = { {
-					path = '~/SynologyDrive/Personal/shkVimWiki/',
-					path_html = '~/SynologyDrive/Personal/shkVimWikiHTM/',
+					path = '~/SynologyDrive/Personal/Awesome/',
+					path_html = '~/SynologyDrive/Personal/AwesomeHTML/',
 					template_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/vimwiki/autoload/vimwiki/",
-					-- syntax = "markdown", ext = ".md"
+					syntax = "markdown", ext = ".md"
 				} }
 			else opts = {} end
 			vim.g.vimwiki_list = opts
 			vim.g["vimwiki_global_ext"] = 0
 		end
 	}
-	use {
-	'goolord/alpha-nvim',
-	requires = { 'kyazdani42/nvim-web-devicons' },
-	config = function ()
-		require'alpha'.setup(require'alpha.themes.startify'.config)
-		local startify = require('alpha.themes.startify')
-		startify.section.bottom_buttons.val = {
-			startify.button("vn", "neovim config", ":e ~/.config/nvim/init.lua<cr>"),
-			startify.button("vv", ".vimrc config", ":e ~/.vimrc<cr>"),
-			startify.button("vq", "qt-config", ":e ~/.config/nvim/ginit.vim<cr>"),
-			startify.button("vg", "goneovim config", ":e ~/.goneovim/settings.toml<cr>"),
-			startify.button("va", "AutoHotKey Script", ":e C:/Users/shk/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/myScript.ahk<cr>"),
-			startify.button("vA", "Alacritty config", ":e C:/Users/shk/AppData/Roaming/alacritty/alacritty.yml<cr>"),
-			startify.button("vw", "wezterm config", ":e C:/Users/shk/.config/wezterm/wezterm.lua <cr>"),
-			startify.button("ai", "app installs quick note", ":e ~/app_installs.md<cr>"),
-			startify.button("q", "quit nvim", ":qa<cr>")
-		}
-		vim.api.nvim_set_keymap('n', '<c-n>', ':Alpha<cr>', { noremap = true })
-	end
-	}
+
+	-- start screen
+	-- use "mhinz/vim-startify"
+
+	-- use {
+	-- 'goolord/alpha-nvim',
+	-- requires = { 'kyazdani42/nvim-web-devicons' },
+	-- config = function ()
+	-- 	require'alpha'.setup(require'alpha.themes.startify'.config)
+	-- 	local startify = require('alpha.themes.startify')
+	-- 	startify.section.bottom_buttons.val = {
+	-- 		startify.button("vn", "neovim config", ":e ~/.config/nvim/init.lua<cr>"),
+	-- 		startify.button("vv", ".vimrc config", ":e ~/.vimrc<cr>"),
+	-- 		startify.button("vq", "qt-config", ":e ~/.config/nvim/ginit.vim<cr>"),
+	-- 		startify.button("vg", "goneovim config", ":e ~/.goneovim/settings.toml<cr>"),
+	-- 		startify.button("va", "AutoHotKey Script", ":e C:/Users/shk/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/myScript.ahk<cr>"),
+	-- 		startify.button("vA", "Alacritty config", ":e C:/Users/shk/AppData/Roaming/alacritty/alacritty.yml<cr>"),
+	-- 		startify.button("vw", "wezterm config", ":e C:/Users/shk/.config/wezterm/wezterm.lua <cr>"),
+	-- 		startify.button("ai", "app installs quick note", ":e ~/app_installs.md<cr>"),
+	-- 		startify.button("q", "quit nvim", ":qa<cr>")
+	-- 	}
+	-- 	vim.api.nvim_set_keymap('n', '<c-n>', ':Alpha<cr>', { noremap = true })
+	-- end
+	-- }
 
 	-- IDE
 	use {
 		'nvim-treesitter/nvim-treesitter',
 		run = ':TSUpdate'
 	}
+	use 'nvim-treesitter/nvim-treesitter-context'
+	require 'nvim-treesitter.install'.compilers = { "gcc" }
 	require'nvim-treesitter.configs'.setup {
-		ensure_installed = { "bash", "c", "cpp", "c_sharp", "lua", "css", "hjson", "help", "javascript", "java", "json", "latex", "markdown", "php", "python", "ruby", "tsx", "typescript", "vim", "markdown" },
-		-- ensure_installed = "all",
+		-- ensure_installed = { "bash","c","cpp","c_sharp","lua","css","help","json","markdown","python","markdown" },
+		sync_install = false,
+		auto_install = true,
 		highlight = {
 			enable = true,
 		},
