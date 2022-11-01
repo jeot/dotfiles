@@ -1,3 +1,14 @@
+local ensure_packer = function()
+  local fn = vim.fn
+  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    vim.cmd [[packadd packer.nvim]]
+    return true
+  end
+  return false
+end
+
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 vim.cmd [[
   augroup packer_user_config
@@ -6,9 +17,11 @@ vim.cmd [[
   augroup end
 ]]
 
+local packer_bootstrap = ensure_packer()
+
 -- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
+local status, packer = pcall(require, "packer")
+if not status then
   return
 end
 
@@ -19,18 +32,14 @@ return packer.startup(function()
 	use 'nvim-lua/popup.nvim'
 
 	-- colorscheme
-	-- use 'vim-airline/vim-airline'
-	-- use 'vim-airline/vim-airline-themes'
-	-- use 'sainnhe/gruvbox-material'
-	-- use "lunarvim/darkplus.nvim"
-	use { 'bkircher/darkplus.nvim' , branch = 'listchars-handling'}
-	use 'nathanaelkane/vim-indent-guides'
-	-- use { 'nvim-lualine/lualine.nvim', requires = { 'kyazdani42/nvim-web-devicons', opt = true } }
-	-- require('lualine').setup { options = { theme = 'dracula' } }
-	-- use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
+	use 'rafi/awesome-vim-colorschemes'
 	use 'itchyny/lightline.vim'
 	use 'mengelbrecht/lightline-bufferline'
-	use 'xiyaowong/nvim-transparent'
+	use 'PeterRincker/vim-searchlight'
+	use {
+		'nvim-lualine/lualine.nvim',
+		requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+	}
 
 	-- cmp plugins
 	use { "hrsh7th/nvim-cmp", branch = 'main'} -- The completion plugin
@@ -50,43 +59,14 @@ return packer.startup(function()
 	use 'neovim/nvim-lspconfig'
 	use 'williamboman/mason.nvim'
 	use 'williamboman/mason-lspconfig.nvim'
-	-- use 'williamboman/nvim-lsp-installer'
-    -- require("nvim-lsp-installer").setup {}
-	-- run this command after: LspInstall clangd cssls html jsonls sumneko_lua pyright
-	-- !! the following setup don't work and I don't know why!
-	-- require'nvim-lsp-installer'.setup({
-	-- 	-- ensure_installed = { "clangd", "cssls", "html", "jsonls", "sumneko_lua", "pyright" }, -- ensure these servers are always installed
-	-- 	automatic_installation = true, -- automatically detect which servers to install (based on which servers are set up via lspconfig)
-	-- 	ui = {
-	-- 		icons = {
-	-- 			server_installed = "✓",
-	-- 			server_pending = "➜",
-	-- 			server_uninstalled = "✗"
-	-- 		}
-	-- 	}
-	-- })
-	-- require'nvim-lsp-installer'.on_server_ready(function(server)
-	-- 	local opts = {}
-	-- 	if server.name == "sumneko_lua" then
-	-- 		opts = {
-	-- 			settings = {
-	-- 				Lua = {
-	-- 					diagnostics = {
-	-- 						globals = { 'vim', 'use' }
-	-- 					},
-	-- 				}
-	-- 			}
-	-- 		}
-	-- 	end
-	-- 	server:setup(opts)
-	-- end)
 
 	use 'cohama/lexima.vim'
 	use 'tpope/vim-surround'
 	use 'tpope/vim-unimpaired'
-	use 'tpope/vim-commentary'
-	use 'christoomey/vim-tmux-navigator'
-	vim.g.tmux_navigator_disable_when_zoomed = 1
+	-- use 'tpope/vim-commentary'
+	use 'numToStr/Comment.nvim'
+	-- use 'christoomey/vim-tmux-navigator'
+	-- vim.g.tmux_navigator_disable_when_zoomed = 1
 
 	-- wiki
 	use {
@@ -146,8 +126,20 @@ return packer.startup(function()
 	require 'nvim-treesitter.install'.compilers = { "gcc" }
 	require'nvim-treesitter.configs'.setup {
 		-- ensure_installed = { "bash","c","cpp","c_sharp","lua","css","help","json","markdown","python","markdown" },
+		incremental_selection = {
+			enable = true,
+			disable = function(lang, bufnr) -- Disable in large files
+		        return lang == "vim" or vim.api.nvim_buf_line_count(bufnr) > 50000
+			end,
+			keymaps = {
+				init_selection = 'v<CR>',
+				node_incremental = '<CR>',
+				scope_incremental = '<TAB>',
+				node_decremental = '<S-TAB>',
+			},
+		},
 		sync_install = false,
-		auto_install = true,
+		auto_install = false,
 		highlight = {
 			enable = true,
 		},
@@ -157,16 +149,16 @@ return packer.startup(function()
 	}
 	vim.opt.foldmethod = 'expr'
 	vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-	use {
-		'nvim-telescope/telescope.nvim',
-		requires = { {'nvim-lua/plenary.nvim'} }
-	}
-	use 'tpope/vim-obsession'
-	use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons', } }
+	use { 'nvim-telescope/telescope.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+	use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' } }
 	use 'moll/vim-bbye'
+
+	use 'lewis6991/impatient.nvim'
+	require('impatient')
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
-	if PACKER_BOOTSTRAP then
-		require("packer").sync()
+	if packer_bootstrap then
+		require('packer').sync()
 	end
 end)

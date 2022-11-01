@@ -1,7 +1,11 @@
-local status_ok, nvim_tree = pcall(require, "nvim-tree")
-if not status_ok then
+local status, nvim_tree = pcall(require, "nvim-tree")
+if not status then
   return
 end
+
+-- disable netrw at the very start of your init.lua (strongly advised)
+vim.g.loaded = 1
+vim.g.loaded_netrwPlugin = 1
 
 nvim_tree.setup {
 	disable_netrw = true,
@@ -22,14 +26,17 @@ nvim_tree.setup {
 		custom = {},
 		exclude = {},
 	},
+	filesystem_watchers = {
+		enable = true,
+		debounce_delay = 200,
+	},
 	git = {
-		enable = false,
+		enable = true,
 		ignore = true,
 		timeout = 400,
 	},
 	view = {
 		width = 30,
-		height = 30,
 		hide_root_folder = false,
 		side = "left",
 		preserve_window_proportions = false,
@@ -42,6 +49,10 @@ nvim_tree.setup {
 				{ key = "h", action = "close_node" },
 				{ key = "l", action = "preview" },
 				{ key = { "<CR>", "o" }, action = "edit" },
+				{ key = "u", action = "dir_up" },
+				{ key = "'", action = "close_node" },
+				{ key = '"', action = "collapse_all" },
+				{ key = "?", action = "toggle_help" },
 			},
 		},
 	},
@@ -53,7 +64,7 @@ nvim_tree.setup {
 		highlight_opened_files = "none",
 		root_folder_modifier = ":~",
 		indent_markers = {
-			enable = false,
+			enable = true,
 			icons = {
 				corner = "└ ",
 				edge = "│ ",

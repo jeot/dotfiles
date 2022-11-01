@@ -12,6 +12,7 @@
 -- create a group
 local group = vim.api.nvim_create_augroup("SmashThatLikeButton", { clear = true })
 -- reload file autocommand in lua:
+-- (is this redundant with autoread option in neovim?)
 vim.api.nvim_create_autocmd(
 	{"FocusGained","BufEnter","CursorHold","CursorHoldI"},
 	{ group = group, pattern = "*", command = "if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif "}
@@ -24,7 +25,6 @@ vim.api.nvim_create_autocmd(
 	{"FileType"}, {group = group, pattern = "lua", command = "setlocal ts=2 sw=2 sts=0 noexpandtab"}
 )
 
-
 -- delete white space at end of lines
 vim.api.nvim_create_autocmd("BufWritePre", {group = group, pattern={"*.h","*.cpp", "*.lua"}, command="%s/\\s\\+$//e"})
 
@@ -33,9 +33,23 @@ if vim.fn.has('gui') then
 	vim.cmd [[ set guifont=Mononoki\ Nerd\ Font\ Mono:h12 ]]
 end
 
+-- test
+-- Zoom / Restore window.
 vim.cmd [[
-if exists('g:gonvim_running')
-	nnoremap <F11> :GonvimFullscreen<cr>
-endif
+function! s:ZoomToggle() abort
+	if exists('t:zoomed') && t:zoomed
+		execute t:zoom_winrestcmd
+		let t:zoomed = 0
+	else
+		let t:zoom_winrestcmd = winrestcmd()
+		resize
+		vertical resize
+		let t:zoomed = 1
+	endif
+endfunction
+command! ZoomToggle call s:ZoomToggle()
+nnoremap <silent> <leader>wf :ZoomToggle<CR>
 ]]
 
+-- disable diagnostics by default
+vim.diagnostic.disable()
